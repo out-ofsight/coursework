@@ -1,16 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Библеотека</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="{% static 'start_menu/styles.css' %}">
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Turret+Road:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
+        {% if massage %}
+            {% for massage in massages %}
+                <div class="alert"> 
+                    {{ massage }}
+                 </div>
+            {% endfor %}
+        {% endif %}
         <header id="header">
             <nav id="login_and_registration">
                 <a class="login_and_registration" href=""> Войти </a>
-                <a class="login_and_registration" href="../Regestration_menu/regHTML.html"> Регистрация</a>
+                <a class="login_and_registration" href="{% url 'regestration_menu' %}"> Регистрация</a>
             </nav>
         </header>
         <nav id="navigation">
@@ -22,8 +30,8 @@
     </nav>
         <aside id="genres">
             <nav id="genrenavigation">
-
             </nav>
         </aside>
+        {% block content %} {% endblock %}
     </body>
 </html>

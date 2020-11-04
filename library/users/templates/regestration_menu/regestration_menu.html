@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Регестрация</title>
+        <link rel="stylesheet" href="{% static 'regestration_menu/styles.css' %}">
+    </head>
+    <body>
+            <div class="back">
+                <div class="position_of_form">
+                    <div class="header"> <h1>Регестрация</h1></div>
+                    <div class="formbox">
+                        <button type="button" class="registation_button">Зарегестрироваться</button>
+                        <form class="input_data_form">
+                            <div>
+                                {{ username.label }}
+                                 {{ form.username }}
+                            </div>
+                            <div>
+                                {{ form.email }}
+                            </div>
+                            <div>
+                                {{ form.password1 }}
+                            </div>
+                            <div>
+                                {{ form.password2 }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
