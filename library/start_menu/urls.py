@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from users import views as user_views
 from django.contrib.auth import views as auth_views
-from .views import ServiceListView, ServiceDetailView
+from .views import ServiceListView, ServiceDetailView, AuthorListView, AuthorDetailView
 
 
 urlpatterns = [
@@ -16,6 +16,9 @@ urlpatterns = [
     path('add_settings/', views.add_settings, name='add_settings'),
     path('update_settings/', ServiceListView.as_view(template_name='settings/update_settings.html'), name='update_settings'),
     path('update_settings/<int:pk>/', ServiceDetailView.as_view(template_name='settings/detail_service.html'), name='detail_view'),
+    path('update_author/', AuthorListView.as_view(template_name='settings/update_author.html'), name='author_update'),
+    path('update_author/<int:pk>/', AuthorDetailView.as_view(template_name='settings/detail_author.html'), name='detail_author'),
     path('update_service/<int:pk>/', views.update_service, name='update_service'),
+    path('update_author_form/<int:pk>/', views.update_author, name='update_author_form'),
     path('delete_service/<int:pk>/', views.delete_service, name="delete_service"),
 ]

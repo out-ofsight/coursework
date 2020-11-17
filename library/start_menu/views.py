@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .models import Service, Author
-from .forms import ServiceUpdateForm, AuthorAddForm
+from .models import Service, Author, Book
+from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm
 from django.views.generic import ListView, DetailView, TemplateView
 # Create your views here.
 
@@ -29,11 +29,25 @@ def add_settings(request):
         author = Author(name=name,information_about=information,birth_date=birth,death_date=death)
         if not Author.objects.filter(name=name).exists():
             author.save()
+    
     return render(request, 'settings/settings.html')
  
 def update_settings(request, pk):
 
     return render(request, 'settings/update_settings.html')
+
+def update_author(request, pk):
+  
+    author = Author.objects.get(id=pk)
+    form = AuthorUpdateForm(instance=author)
+
+    if request.method == 'POST':
+        form = AuthorUpdateForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+
+    context = {'form':form, 'object':author}
+    return render(request, 'settings/update_author_form.html', context)
 
 def update_service(request, pk):
     
@@ -63,5 +77,13 @@ class ServiceListView(ListView):
     context_object_name = 'servisies'
     ordering = ['-name']
 
+class AuthorListView(ListView):
+    model = Author
+    context_object_name = 'authors'
+    ordering = ['-id']
+
 class ServiceDetailView(DetailView):
     model = Service
+
+class AuthorDetailView(DetailView):
+    model = Author

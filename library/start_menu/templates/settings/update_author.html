@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Сервисы </title>
+        <title> Авторы </title>
         <link rel="stylesheet" href="{% static 'settings/styles.css' %}">
     </head>
     <body>
@@ -19,11 +19,11 @@
         
         {% block content %}
         
-        {% for service in servisies %}
-        <h2><a class="article-title" href="{% url 'detail_view' service.id %}">{{ service.name }}</a></h2>
+        {% for author in authors %}
+        <h2><a class="article-title" href="{% url 'detail_author' author.id %}">{{ author.name }}</a></h2>
         {% endfor %}
         </div>
-
+        
     {% endblock content %}
 
     </body>

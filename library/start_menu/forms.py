@@ -13,3 +13,8 @@ class AuthorAddForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = '__all__'
+
+class AuthorUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = '__all__'
