@@ -8,9 +8,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Turret+Road:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-        {% if massage %}
+        {% if massages %}
             {% for massage in massages %}
-                <div class="alert"> 
+                <div class="alert alert-{{ massage.tags }}"> 
                     {{ massage }}
                  </div>
             {% endfor %}
@@ -26,6 +26,13 @@
                 {% endif %}
             </nav>
         </header>
+        <div class="hiden">
+            <div>
+            </div>
+            <div>
+
+            </div>
+        </div>
         <nav id="navigation">
             {% if user.is_authenticated %}
             <a class="navigation_links" href="">Книги</a>
