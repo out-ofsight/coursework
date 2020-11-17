@@ -8,9 +8,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Turret+Road:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-        {% if massage %}
+        {% if massages %}
             {% for massage in massages %}
-                <div class="alert"> 
+                <div class="alert alert-{{ massage.tags }}"> 
                     {{ massage }}
                  </div>
             {% endfor %}
@@ -21,6 +21,13 @@
                 <a class="login_and_registration" href="{% url 'regestration_menu' %}"> Регистрация</a>
             </nav>
         </header>
+        <div class="hiden">
+            <div>
+            </div>
+            <div>
+
+            </div>
+        </div>
         <nav id="navigation">
             <a class="navigation_links" href="">Книги</a>
             <a class="navigation_links">Жанры</a>

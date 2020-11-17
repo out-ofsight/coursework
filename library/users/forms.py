@@ -18,3 +18,9 @@ class CreationForm(UserCreationForm):
             'password1',
             'password2'
         ]
+        labels = {
+            'username': 'Имя на сайте',
+            'email': 'Електронная почта',
+            'password1': 'Пароль',
+            'password2': 'Подтвердите пароль',
+        }

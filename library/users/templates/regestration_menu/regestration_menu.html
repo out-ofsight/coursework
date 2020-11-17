@@ -11,21 +11,33 @@
                 <div class="position_of_form">
                     <div class="header"> <h1>Регестрация</h1></div>
                     <div class="formbox">
-                        <button type="button" class="registation_button">Зарегестрироваться</button>
-                        <form class="input_data_form">
-                            <div>
-                                {{ username.label }}
-                                 {{ form.username }}
+                        <form class="input_data_form" method="POST">
+                            {% csrf_token %}
+                            <div class="input">
+                                {{ form.username.label }}
+                                <br>
+                                {{ form.username }}
                             </div>
-                            <div>
+                            <div class="input">
+                                {{ form.email.label }}
+                                <br>
                                 {{ form.email }}
                             </div>
-                            <div>
+                            <div class="input">
+                                {{ form.password1.label }}
+                                <br>
                                 {{ form.password1 }}
                             </div>
-                            <div>
+                            <div class="input">
+                                {{ form.password2.label }}
+                                <br>
                                 {{ form.password2 }}
                             </div>
+                            {{ form.errors }}
+                            <button type="submit" class="registation_button">Зарегестрироваться</button>
+                                 <div>
+                                    Уже есть аккаунт? <a href="{% url 'start_search_menu' %}"> Зайти</a>
+                                 </div>
                         </form>
                     </div>
                 </div>
