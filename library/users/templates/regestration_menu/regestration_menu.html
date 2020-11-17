@@ -11,21 +11,29 @@
                 <div class="position_of_form">
                     <div class="header"> <h1>Регестрация</h1></div>
                     <div class="formbox">
-                        <button type="button" class="registation_button">Зарегестрироваться</button>
-                        <form class="input_data_form">
+                        <form class="input_data_form" method="POST">
+                            {% csrf_token %}
                             <div>
-                                {{ username.label }}
+                                <div class='error'>{{form.errors.username}}</div>
+                                <div> Имя пользывателя </div>
                                  {{ form.username }}
                             </div>
                             <div>
+                                <div class='error'>{{form.errors.email}}</div>
+                                <div> Почта </div>
                                 {{ form.email }}
                             </div>
                             <div>
+                                <div class='error'>{{form.errors.password1}}</div>
+                                <div> Пароль </div>
                                 {{ form.password1 }}
                             </div>
                             <div>
+                                <div class='error'>{{form.errors.password2}}</div>
+                                <div> Подтвердите пароль </div>
                                 {{ form.password2 }}
                             </div>
+                            <button type="submit" class="registation_button">Зарегестрироваться</button>
                         </form>
                     </div>
                 </div>

@@ -19,6 +19,11 @@
     font-size: 200%;
     border-radius: 15px;
 }
+.login_and_registration:hover {
+    transition-duration: 0.3s;
+    color: #fff;
+    background-color:  #DC143C;
+}
 .navigation_links {
     font-family: 'Amatic SC', cursive;
     text-decoration: none;
@@ -36,6 +41,26 @@
     margin-left: 85%;
     margin-top: 2%;
 }
-.login_and_registration:hover {
-    background-color: #FFF;
+.navigation_links {
+    display: inline;
+    position: relative;
+    overflow: hidden;
+  }
+.navigation_links:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: -5px;
+    background: #DC143C;
+    height: 4px;
+    transition-property: left right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+.navigation_links:hover:after,
+.navigation_links:focus:after,
+.navigation_links:active:after {
+    right: 0;
 }

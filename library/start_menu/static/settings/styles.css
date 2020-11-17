@@ -1,0 +1,14 @@
+.update_block {
+    border: solid 1px #000;
+}
+.add_new_author {
+    border: solid 1px #000;
+    margin-top: 10px;
+}
+.links_to_update_service {
+    padding: 5px;
+    margin: 5px;
+}
+.link_1 {
+    padding: 5px;
+}

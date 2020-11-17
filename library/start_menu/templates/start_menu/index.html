@@ -17,16 +17,26 @@
         {% endif %}
         <header id="header">
             <nav id="login_and_registration">
-                <a class="login_and_registration" href=""> Войти </a>
+                {% if user.is_authenticated %}
+                <a class="login_and_registration" href="{% url 'profile' %}">Мой кабинет</a>
+                <a class="login_and_registration" href="{% url 'logout' %}"> Выйти </a>
+                {% else %}
+                <a class="login_and_registration" href="{% url 'login' %}"> Войти </a>
                 <a class="login_and_registration" href="{% url 'regestration_menu' %}"> Регистрация</a>
+                {% endif %}
             </nav>
         </header>
         <nav id="navigation">
+            {% if user.is_authenticated %}
             <a class="navigation_links" href="">Книги</a>
             <a class="navigation_links">Жанры</a>
             <a class="navigation_links">Авторы</a>
             <a class="navigation_links">Серии</a>
-            <a class="navigation_links">Мой кабинет</a>
+            <a class="navigation_links" href="{% url 'profile' %}">Мой кабинет</a>
+            {% endif %}
+            {% if user.is_superuser %}   
+            <a class="navigation_links" href="{% url 'settings' %}"> Настройка сервисов </a>
+            {% endif %}
     </nav>
         <aside id="genres">
             <nav id="genrenavigation">

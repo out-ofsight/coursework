@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Сервисы </title>
+        <link rel="stylesheet" href="{% static 'settings/styles.css' %}">
+    </head>
+    <body>
+        <div class="update_block">
+        <nav class="links_to_update_service">
+            <a href="{% url 'settings' %}" class="link_1">
+                Добавить сервис
+            </a>
+
+            <a href="{% url 'update_settings' %}"> Список сервисов </a> 
+        </nav>
+        <div class="add_new_service">
+            <form method="POST" action="/add_settings/" name="add_service">
+                {% csrf_token %}
+                <input name="service_name" type="text" placeholder="Имя сервеса">
+                <input name="opportunities" type="text" placeholder="Возможности сервеса">
+                <input name="time_acvities" type="date" placeholder="Время работы сервеса">
+                <button type="submit" name="add_service">Добавить Сервис</button>
+            </form>
+        
+        </div>
+    </div>
+        <div class="add_new_author">
+            <form method="POST" action="/settings/" name="add_service">
+                {% csrf_token %}
+                <input name="name_author" type="text" placeholder="ФИО автора">
+                <input name="information" type="text" placeholder="Информация об авторе">
+                <input name="birth" type="date" placeholder="Дата рождения">
+                <input name="death" type="date" placeholder="Дата смерти">
+                <button type="submit" name="add_service">Добавить Автора</button>
+               
+            </form>
+        </div>
+
+        
+    </body>
+</html>

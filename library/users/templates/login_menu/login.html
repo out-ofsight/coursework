@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Вход</title>
+        <link rel="stylesheet" href="{% static 'regestration_menu/styles.css' %}">
+    </head>
+    <body>
+            <div class="back">
+                <div class="position_of_form">
+                    <div class="header"> <h1>Вход</h1></div>
+                    <div class="formbox">
+                        <form class="input_data_form" method="POST">
+                            {% csrf_token %}
+                            <div>
+                                <div class='error'>{{messages.info.username}}</div>
+                                <div> <input type="text" name="username" placeholder="Имя"> </div>
+                                 
+                            </div>
+                            <div>
+                                <div class='error'>{{form.errors.password1}}</div>
+                                <div> <input type="password" name="password" placeholder="Пароль"> </div>
+                            </div>
+                            <button type="submit" class="registation_button">Войти</button>
+                        </form>
+                    </div>
+                </div>
+                {% for massage in messages %}
+                   <p> {{ massage }} </p>
+                {% endfor %}
+            </div>
+    </body>
+</html>

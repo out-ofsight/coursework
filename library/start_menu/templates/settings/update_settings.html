@@ -1,0 +1,29 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Сервисы </title>
+        <link rel="stylesheet" href="{% static 'settings/styles.css' %}"
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'settings' %}">
+                Добавить сервис
+            </a>
+            <a href="{% url 'update_settings' %}">
+                Список сервисов
+            </a>
+        </nav>
+        
+        {% block content %}
+        
+        {% for service in servisies %}
+        <h2><a class="article-title" href="{% url 'detail_view' service.id %}">{{ service.name }}</a></h2>
+        {% endfor %}
+        </div>
+    {% endblock content %}
+
+    </body>
+</html>

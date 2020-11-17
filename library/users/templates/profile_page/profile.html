@@ -1,0 +1,61 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <meta charset="utf-8">
+        <title> Ваш кабинет </title>
+        <link rel="stylesheet" href="{% static 'profile_page/styles.css' %}">
+    </head>
+
+    <body>
+        <nav class="navigation_bar"> 
+            <a class="navigation_links" href="">Книги</a>
+            <a class="navigation_links">Ваша библеотека</a>
+            <a class="navigation_links" href="{% url 'start_search_menu' %}">Главное меню</a>
+        </nav>
+        <nav>
+            <a class="settings">
+                Настроики
+            </a>
+            <a class="settings">
+                Сервесы
+            </a>
+        </nav>
+        <form class="input_data_form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+            
+            <button type="submit" class="registation_button">Обновить</button>
+        </form>
+       <!--<div class="user_information">
+            <div class="user_image_field">
+                <h2> Привет, {{ user.username }}</h2>
+                <img class="user_image" src="{{ user.profile.image.url }}" width="50" height="50">
+         </div>
+        </div>
+        <div class="user_password_field">
+            <h2>
+                Изменить Пароль
+                {{ username.password1 }}
+            </h2>
+        </div>
+        <div class="user_names_field">
+            <h2>
+                Ваши данные
+                {{ username.first_name }}
+            </h2>
+        </div>
+        <div class="password_field">
+            <h2>
+                Ваша почта
+            </h2>
+            {{ username.email }}
+        </div>
+    -->
+    </body>
+
+</html>
+
