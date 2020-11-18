@@ -36,12 +36,12 @@ class Author(models.Model):
 
 class Service(models.Model):
     
-        name = models.CharField(max_length=100, verbose_name='Название сервиса')
-        description = models.TextField(max_length=300, verbose_name='Описание')
-        time_to_use = models.DateField()
+    name = models.CharField(max_length=100, verbose_name='Название сервиса')
+    description = models.TextField(max_length=300, verbose_name='Описание')
+    time_to_use = models.DateField()
         
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 
 class Profile(models.Model):

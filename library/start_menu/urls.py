@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from users import views as user_views
 from django.contrib.auth import views as auth_views
-from .views import ServiceListView, ServiceDetailView, AuthorListView, AuthorDetailView
+from .views import ServiceListView, ServiceDetailView, AuthorListView, AuthorDetailView, GenreDetailView, SerieDetailView, LanguageDetailView, GenreListView, LanguageListView, SerieListView, PublishingHouseDetailView, PublishingHouseListView
 
 
 urlpatterns = [
@@ -17,8 +17,21 @@ urlpatterns = [
     path('update_settings/', ServiceListView.as_view(template_name='settings/update_settings.html'), name='update_settings'),
     path('update_settings/<int:pk>/', ServiceDetailView.as_view(template_name='settings/detail_service.html'), name='detail_view'),
     path('update_author/', AuthorListView.as_view(template_name='settings/update_author.html'), name='author_update'),
+    path('update_genre/', GenreListView.as_view(template_name='settings/update_genre.html'), name='genre_update'),
+    path('update_serie/', SerieListView.as_view(template_name='settings/update_serie.html'), name='serie_update'),
+    path('update_publishing_house/<int:pk>/', PublishingHouseDetailView.as_view(template_name='settings/detail_publishing_house.html'), name='detail_publishing_house'),
+    path('update_publishing_house/', PublishingHouseListView.as_view(template_name='settings/update_publishing_house.html'), name='publishing_house_update'),
+    path('update_language/', LanguageListView.as_view(template_name='settings/update_language.html'), name='language_update'),
     path('update_author/<int:pk>/', AuthorDetailView.as_view(template_name='settings/detail_author.html'), name='detail_author'),
+    path('update_genre/<int:pk>/', GenreDetailView.as_view(template_name='settings/detail_genre.html'), name='detail_genre'),
+    path('update_serie/<int:pk>/', SerieDetailView.as_view(template_name='settings/detail_serie.html'), name='detail_serie'),
+    path('update_language/<int:pk>/', LanguageDetailView.as_view(template_name='settings/detail_language.html'), name='detail_language'),
     path('update_service/<int:pk>/', views.update_service, name='update_service'),
     path('update_author_form/<int:pk>/', views.update_author, name='update_author_form'),
+    path('update_genre_form/<int:pk>/', views.update_genre, name='update_genre_form'),
+    path('update_serie_form/<int:pk>/', views.update_serie, name='update_serie_form'),
+    path('update_language_form/<int:pk>/', views.update_language, name='update_language_form'),
+    path('update_publishing_house_form/<int:pk>/', views.update_publishing_house, name='update_publishing_house_form'),
     path('delete_service/<int:pk>/', views.delete_service, name="delete_service"),
+    path('123/', views.add_book, name='123')
 ]

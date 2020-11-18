@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .models import Service, Author, Book
-from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm
+from .models import Service, Author, Book, Serie, Genre, Language, Publishing_House
+from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm, GenreUpdateForm, SerieUpdateForm, LanguageUpdateForm, PublishingHouseUpdateForm, BookAddForm
 from django.views.generic import ListView, DetailView, TemplateView
 # Create your views here.
 
@@ -30,7 +30,36 @@ def add_settings(request):
         if not Author.objects.filter(name=name).exists():
             author.save()
     
-    return render(request, 'settings/settings.html')
+    if 'add_genre' in request.POST:
+        name = request.POST['name_genre']
+        information = request.POST['information_of_genre']
+        genre = Genre(name=name, description=information)
+        if not Serie.objects.filter(name=name).exists():
+            genre.save()
+        
+    if 'add_serie' in request.POST:
+        name = request.POST['name_serie']
+        information = request.POST['information_serie']
+        is_ended = request.POST['is_ended']
+        serie = Serie(name=name, is_ended=is_ended,description=information)
+        if not Serie.objects.filter(name=name).exists():
+            serie.save()
+        
+    if 'add_language' in request.POST:
+        name = request.POST['name_language']
+        language = Language(name=name)
+        if not Language.objects.filter(name=name).exists():
+            language.save()
+    
+    if 'add_publishing_house' in request.POST:
+        name = request.POST['name_publishing_hose']
+        location = request.POST['location']
+        publishing_house = Publishing_House(name=name,location=location)
+        if not Publishing_House.objects.filter(name=name).exists():
+            publishing_house.save()
+    
+
+    return render(request, 'settings/settings.html', context)
  
 def update_settings(request, pk):
 
@@ -71,6 +100,63 @@ def delete_service(request, pk):
     context = {'object':service}
     return render(request, 'settings/delete_service.html', context)
 
+def update_serie(request, pk):
+  
+    serie = Serie.objects.get(id=pk)
+    form = SerieUpdateForm(instance=serie)
+
+    if request.method == 'POST':
+        form = SerieUpdateForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+
+    context = {'form':form, 'object':serie}
+    
+    return render(request, 'settings/update_serie_form.html', context)
+
+def update_publishing_house(request, pk):
+  
+    publishing_house = Publishing_House.objects.get(id=pk)
+    form = PublishingHouseUpdateForm(instance=publishing_house)
+
+    if request.method == 'POST':
+        form = PublishingHouseUpdateForm(request.POST, instance=publishing_house)
+        if form.is_valid():
+            form.save()
+
+    context = {'form':form, 'object':publishing_house}
+    
+    return render(request, 'settings/update_publishing_house_form.html', context)
+
+def update_genre(request, pk):
+  
+    genre = Genre.objects.get(id=pk)
+    form = GenreUpdateForm(instance=genre)
+
+    if request.method == 'POST':
+        form = GenreUpdateForm(request.POST, instance=genre)
+        if form.is_valid():
+            form.save()
+
+    context = {'form':form, 'object':genre}
+    
+    return render(request, 'settings/update_genre_form.html', context)
+
+def update_language(request, pk):
+  
+    language = Language.objects.get(id=pk)
+    form = LanguageUpdateForm(instance=language)
+
+    if request.method == 'POST':
+        form = LanguageUpdateForm(request.POST, instance=language)
+        if form.is_valid():
+            form.save()
+
+    context = {'form':form, 'object':language}
+    # поменять  html
+    return render(request, 'settings/update_language_form.html', context)
+
+
 
 class ServiceListView(ListView):
     model = Service
@@ -82,8 +168,60 @@ class AuthorListView(ListView):
     context_object_name = 'authors'
     ordering = ['-id']
 
+class GenreListView(ListView):
+    model = Genre
+    context_object_name = 'genres'
+    ordering = ['-id']
+
+class PublishingHouseListView(ListView):
+    model = Publishing_House
+    context_object_name = 'publishing_houses'
+    ordering = ['-id']
+
+class SerieListView(ListView):
+    model = Serie
+    context_object_name = 'series'
+    ordering = ['-id']
+
+class LanguageListView(ListView):
+    model = Language
+    context_object_name = 'languages'
+    ordering = ['-id'] 
+
 class ServiceDetailView(DetailView):
     model = Service
 
 class AuthorDetailView(DetailView):
+
     model = Author
+
+class GenreListView(ListView):
+    model = Genre
+    context_object_name = 'genres'
+    ordering = ['-name']
+
+class LanguageListView(ListView):
+
+    model = Language
+    context_object_name = 'languages'
+    ordering = ['-name']
+
+class SerieDetailView(DetailView):
+
+    model = Serie
+    
+class GenreDetailView(DetailView):
+
+    model = Genre
+
+class LanguageDetailView(DetailView):
+
+    model = Language
+
+class PublishingHouseDetailView(DetailView):
+    model = Publishing_House
+
+def add_book(request):
+    book_form = BookAddForm(request.POST)
+    context = {'book_form': book_form}
+    return render(request, 'settings/add_book.html', context)
