@@ -1,1 +1,6 @@
 {% extends "start_menu/index.html" %}
+{% block content %}
+    {% for book in books %}
+    <img src="{{ book.cover_image.url }}">
+    {% endfor %}
+ {% endblock %}

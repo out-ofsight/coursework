@@ -8,13 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Turret+Road:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-        {% if massages %}
-            {% for massage in massages %}
-                <div class="alert alert-{{ massage.tags }}"> 
-                    {{ massage }}
-                 </div>
-            {% endfor %}
-        {% endif %}
+
         <header id="header">
             <nav id="login_and_registration">
                 {% if user.is_authenticated %}
@@ -35,7 +29,7 @@
         </div>
         <nav id="navigation">
             {% if user.is_authenticated %}
-            <a class="navigation_links" href="">Книги</a>
+            <a class="navigation_links" href="{% url 'books' %}">Книги</a>
             <a class="navigation_links">Жанры</a>
             <a class="navigation_links">Авторы</a>
             <a class="navigation_links">Серии</a>

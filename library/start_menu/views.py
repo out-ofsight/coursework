@@ -4,15 +4,18 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Service, Author, Book, Serie, Genre, Language, Publishing_House
 from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm, GenreUpdateForm, SerieUpdateForm, LanguageUpdateForm, PublishingHouseUpdateForm, BookAddForm
 from django.views.generic import ListView, DetailView, TemplateView
+from django.db import connection
 # Create your views here.
 
 def home(request):
-    return render(request, 'start_menu/start_menu.html')
+    books = Book.objects.all()
+    context = {'books': books}
+    return render(request, 'start_menu/start_menu.html', context)
 
 def settings(request):
     return render(request, 'settings/settings.html')
 
-def add_settings(request):
+'''def add_settings(request):
     if 'add_service' in request.POST:
         service_name = request.POST['service_name']
         opportunities = request.POST['opportunities']
@@ -59,8 +62,8 @@ def add_settings(request):
             publishing_house.save()
     
 
-    return render(request, 'settings/settings.html', context)
- 
+    return render(request, 'settings/settings.html')
+ '''
 def update_settings(request, pk):
 
     return render(request, 'settings/update_settings.html')
@@ -221,7 +224,71 @@ class LanguageDetailView(DetailView):
 class PublishingHouseDetailView(DetailView):
     model = Publishing_House
 
-def add_book(request):
+class BookListView(ListView):
+    model = Book
+    context_object_name = 'books'
+    def get_author(self):
+        author_name = Book.objects.get(name=self.name).author_book.all()
+
+def book_view(request):
+    
+def get_author(book):
+    
+Library.start_menu_author
+def add_settings_forms(request):
+
+
     book_form = BookAddForm(request.POST)
     context = {'book_form': book_form}
-    return render(request, 'settings/add_book.html', context)
+
+    if 'add_service' in request.POST:
+        service_name = request.POST['service_name']
+        opportunities = request.POST['opportunities']
+        time_acvities = request.POST['time_acvities']
+        service = Service(name=service_name, description=opportunities, time_to_use=time_acvities)
+        if not Service.objects.filter(name=service_name).exists():
+            service.save()
+            
+    if 'add_author' in request.POST:
+        name = request.POST['name_author']
+        information = request.POST['information']
+        birth = request.POST['birth']
+        death = request.POST['death']
+        author = Author(name=name,information_about=information,birth_date=birth,death_date=death)
+        if not Author.objects.filter(name=name).exists():
+            author.save()
+    
+    if 'add_genre' in request.POST:
+        name = request.POST['name_genre']
+        information = request.POST['information_of_genre']
+        genre = Genre(name=name, description=information)
+        if not Serie.objects.filter(name=name).exists():
+            genre.save()
+        
+    if 'add_serie' in request.POST:
+        name = request.POST['name_serie']
+        information = request.POST['information_serie']
+        is_ended = request.POST['is_ended']
+        serie = Serie(name=name, is_ended=is_ended,description=information)
+        if not Serie.objects.filter(name=name).exists():
+            serie.save()
+        
+    if 'add_language' in request.POST:
+        name = request.POST['name_language']
+        language = Language(name=name)
+        if not Language.objects.filter(name=name).exists():
+            language.save()
+    
+    if 'add_publishing_house' in request.POST:
+        name = request.POST['name_publishing_hose']
+        location = request.POST['location']
+        publishing_house = Publishing_House(name=name,location=location)
+        if not Publishing_House.objects.filter(name=name).exists():
+            publishing_house.save()
+    
+    if book_form.is_valid():
+            book_form.save()
+            return redirect('settings')
+    return render(request, 'settings/settings.html', context)
+
+

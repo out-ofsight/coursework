@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'Library',
         'USER': 'root',
         'PASSWORD': 'rootroot',
-        'HOST': 'NeMacBook.local',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }

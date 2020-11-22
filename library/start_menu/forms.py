@@ -36,15 +36,36 @@ class LanguageUpdateForm(forms.ModelForm):
         model = Language
         fields = '__all__'
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
+
 class BookAddForm(forms.ModelForm):
     
-    #id_of_publish_house = forms.ModelChoiceField(queryset=Publishing_House.objects.all())
-    #id_of_series = forms.ModelChoiceField(queryset=Serie.objects.all())
+    id_of_publish_house = forms.ModelChoiceField(queryset=Publishing_House.objects.all())
+    id_of_series = forms.ModelChoiceField(queryset=Serie.objects.all())
+    genre_id = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    author_id = forms.ModelMultipleChoiceField(
+        queryset=Author.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    service_id = forms.ModelMultipleChoiceField(
+        queryset=Service.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    language_id = forms.ModelMultipleChoiceField(
+        queryset=Language.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    year_of_wrote = forms.DateField(widget=DateInput)
+    year_of_publishing = forms.DateField(widget=DateInput)
     class Meta:
         model = Book
-        #fields = ['name', 'cover_image_path', 'description', 'book_text_path', 'year_of_wrote', 'year_of_publishing', ]
         fields = '__all__'
-
+        
 
 class PublishingHouseUpdateForm(forms.ModelForm):
     class Meta:

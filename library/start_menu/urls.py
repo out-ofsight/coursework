@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from users import views as user_views
 from django.contrib.auth import views as auth_views
-from .views import ServiceListView, ServiceDetailView, AuthorListView, AuthorDetailView, GenreDetailView, SerieDetailView, LanguageDetailView, GenreListView, LanguageListView, SerieListView, PublishingHouseDetailView, PublishingHouseListView
+from .views import ServiceListView, ServiceDetailView, AuthorListView, AuthorDetailView, GenreDetailView, SerieDetailView, LanguageDetailView, GenreListView, LanguageListView, SerieListView, PublishingHouseDetailView, PublishingHouseListView, BookListView
 
 
 urlpatterns = [
@@ -12,8 +14,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login_menu/login.html', redirect_field_name='start_search_menu'), name ='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='start_menu/start_menu.html'), name ='logout'),
     path('profile/', user_views.profile, name='profile'),
-    path('settings/', views.settings, name='settings'),
-    path('add_settings/', views.add_settings, name='add_settings'),
+   # path('settings/', views.add_settings_forms, name='settings'),
+    path('books', BookListView.as_view(template_name='start_menu/books.html'), name='books'),
+    path('add_settings/', views.add_settings_forms, name='settings'),
     path('update_settings/', ServiceListView.as_view(template_name='settings/update_settings.html'), name='update_settings'),
     path('update_settings/<int:pk>/', ServiceDetailView.as_view(template_name='settings/detail_service.html'), name='detail_view'),
     path('update_author/', AuthorListView.as_view(template_name='settings/update_author.html'), name='author_update'),
@@ -33,5 +36,4 @@ urlpatterns = [
     path('update_language_form/<int:pk>/', views.update_language, name='update_language_form'),
     path('update_publishing_house_form/<int:pk>/', views.update_publishing_house, name='update_publishing_house_form'),
     path('delete_service/<int:pk>/', views.delete_service, name="delete_service"),
-    path('123/', views.add_book, name='123')
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

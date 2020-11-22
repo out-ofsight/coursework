@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Сервисы </title>
+        <link rel="stylesheet" href="{% static 'settings/styles.css' %}">
+    </head>
+    <body>
+        <nav class="navigation_bar_menu"> 
+            <a href="{% url 'start_search_menu' %}">Главное меню</a>
+            <a href="{% url 'profile' %}">Кабинет</a>
+        </nav>
+        <div class="update_block">
+            <h2> Добавление сервиса </h2>
+        <nav class="links_to_update_service">
+            <a href="{% url 'settings' %}" class="link_1">
+                Добавить сервис
+            </a>
+
+            <a href="{% url 'update_settings' %}"> Список сервисов </a> 
+        </nav>
+        <div class="add_new_service">
+            <form method="POST" action="/add_settings/" name="add_service">
+                {% csrf_token %}
+                <input name="service_name" type="text" placeholder="Имя сервеса">
+                <input name="opportunities" type="text" placeholder="Возможности сервеса">
+                <input name="time_acvities" type="date" placeholder="Время работы сервеса">
+                <button type="submit" name="add_service">Добавить Сервис</button>
+            </form>
+        
+        </div>
+    </div>
+        <div class="add_new_author">
+            <h2> Добавление Автора </h2>
+            <nav class="links_to_update_service">
+                <a href="{% url 'settings' %}" class="link_1">
+                    Добавить автора
+                </a>
+    
+                <a href="{% url 'author_update' %}"> Список авторов </a> 
+            </nav>
+            <form method="POST" action="/add_settings/" name="add_author">
+                {% csrf_token %}
+                <input name="name_author" type="text" placeholder="ФИО автора">
+                <input name="information" type="text" placeholder="Информация об авторе">
+                <input name="birth" type="date" placeholder="Дата рождения">
+                <input name="death" type="date" placeholder="Дата смерти">
+                <button type="submit" name="add_author">Добавить Автора</button>
+               
+            </form>
+        </div>
+        <div class="add_new_serie">
+            <h2> Добавление Серии </h2>
+            <nav class="links_to_update_service">
+                <a href="{% url 'settings' %}" class="link_1">
+                    Добавить серию
+                </a>
+    
+                <a href="{% url 'serie_update' %}"> Список серий </a> 
+            </nav>
+            <form method="POST" action="/add_settings/" name="add_serie">
+                {% csrf_token %}
+                <input name="name_serie" type="text" placeholder="Название серии">
+                <input name="information_serie" type="text" placeholder="Информация об серии">
+                <input name="is_ended" type="checkbox" value="True" placeholder="Серия закончена?">
+                <button type="submit" name="add_serie">Добавить серию</button>
+               
+            </form>
+        </div>
+        <div class="add_new_genre">
+            <h2> Добавление Жанра </h2>
+            <nav class="links_to_update_service">
+                <a href="{% url 'settings' %}" class="link_1">
+                    Добавить жанр
+                </a>
+    
+                <a href="{% url 'genre_update' %}"> Список жанров </a> 
+            </nav>
+            <form method="POST" action="/add_settings/" name="add_author">
+                {% csrf_token %}
+                <input name="name_genre" type="text" placeholder="Название жанра">
+                <input name="information_of_genre" type="text" placeholder="Информация об жанре">
+                <button type="submit" name="add_genre">Добавить жанр</button>
+               
+            </form>
+        </div>
+        <div class="add_new_language">
+            <h2> Добавление языка </h2>
+            <nav class="links_to_update_service">
+                <a href="{% url 'settings' %}" class="link_1">
+                    Добавить язык
+                </a>
+    
+                <a href="{% url 'language_update' %}"> Список языков </a> 
+            </nav>
+            <form method="POST" action="/add_settings/" name="add_author">
+                {% csrf_token %}
+                <input name="name_language" type="text" placeholder="Имя языка">
+                <button type="submit" name="add_language">Добавить язык</button>
+               
+            </form>
+        </div>
+        <div class="add_new_publishing_house">
+            <h2> Добавить издательство </h2>
+            <nav class="links_to_update_service">
+                <a href="{% url 'settings' %}" class="link_1">
+                    Добавить издательство
+                </a>
+    
+                <a href="{% url 'publishing_house_update' %}"> Список издательств </a> 
+            </nav>
+            <form method="POST" action="/add_settings/" name="add_pb">
+                {% csrf_token %}
+                <input name="name_publishing_hose" type="text" placeholder="Название издательства">
+                <input name="location" type="text" placeholder="Локация">
+                <button type="submit" name="add_publishing_house">Добавить серию</button>
+               
+            </form>
+        </div>
+        <br>
+        {%block content%}
+        {%endblock%}
+ </body>
+</html>
