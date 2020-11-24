@@ -44,19 +44,19 @@ class BookAddForm(forms.ModelForm):
     
     id_of_publish_house = forms.ModelChoiceField(queryset=Publishing_House.objects.all())
     id_of_series = forms.ModelChoiceField(queryset=Serie.objects.all())
-    genre_id = forms.ModelMultipleChoiceField(
+    genre_book = forms.ModelMultipleChoiceField(
         queryset=Genre.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
-    author_id = forms.ModelMultipleChoiceField(
+    author_book = forms.ModelMultipleChoiceField(
         queryset=Author.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
-    service_id = forms.ModelMultipleChoiceField(
+    service_book = forms.ModelMultipleChoiceField(
         queryset=Service.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
-    language_id = forms.ModelMultipleChoiceField(
+    language_book = forms.ModelMultipleChoiceField(
         queryset=Language.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )

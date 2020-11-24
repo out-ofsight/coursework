@@ -8,9 +8,11 @@
     </head>
     <body>
         <nav class="navigation_bar_menu"> 
-            <a href="{% url 'start_search_menu' %}">Главное меню</a>
-            <a href="{% url 'profile' %}">Кабинет</a>
+            <a href="{% url 'start_search_menu' %}" class="navigation_links">Главное меню</a>
+            <br>
+            <a href="{% url 'profile' %}" class="navigation_links">Кабинет</a>
         </nav>
+        <div class="all_data">
         <div class="update_block">
             <h2> Добавление сервиса </h2>
         <nav class="links_to_update_service">
@@ -19,14 +21,37 @@
             </a>
 
             <a href="{% url 'update_settings' %}"> Список сервисов </a> 
+
+            <a href="">Удалить сервис</a>
         </nav>
+            
         <div class="add_new_service">
             <form method="POST" action="/add_settings/" name="add_service">
                 {% csrf_token %}
-                <input name="service_name" type="text" placeholder="Имя сервеса">
-                <input name="opportunities" type="text" placeholder="Возможности сервеса">
-                <input name="time_acvities" type="date" placeholder="Время работы сервеса">
-                <button type="submit" name="add_service">Добавить Сервис</button>
+                <div class="group">
+                    <label>Имя</label>
+                <input name="service_name" class="input_area" type="text" >
+                <span class="bar"></span>
+                
+                </div>
+
+
+
+
+                <div class="group">
+                    <label class="label_1">Описание возможностей</label>
+                    <br>
+                <textarea class="information_text_area" name="opportunities"> </textarea>
+            </div>
+                <div class="group">
+                    <label>Длительность</label>
+                    <div>
+                <input name="time_acvities" type="date">
+            </div>
+
+            </div>
+                <button type="submit" name="add_service" class="btn effect04" data-sm-link-text="Нажмите ЛКМ"><span>Добавить </span></button>
+                
             </form>
         
         </div>
@@ -42,11 +67,27 @@
             </nav>
             <form method="POST" action="/add_settings/" name="add_author">
                 {% csrf_token %}
-                <input name="name_author" type="text" placeholder="ФИО автора">
-                <input name="information" type="text" placeholder="Информация об авторе">
+                <div class="group">
+                    <label>Имя автора</label>
+                <input name="name_author" type="text" class="input_area">
+                <span class="bar"></span>
+                </div>
+                <div class="group">
+                    <label class="label_1">Информация об авторе </label>
+                    <textarea name="information" type="text" class="information_text_area_author"> </textarea>
+                    <span class="bar"></span>
+                </div>
+                <div class="group">
+                    <label>Дата рождения</label>
+                    <br>
                 <input name="birth" type="date" placeholder="Дата рождения">
+            </div>
+                <div class="group">
+                    <label>Дата сметри</label>
+                    <br>
                 <input name="death" type="date" placeholder="Дата смерти">
-                <button type="submit" name="add_author">Добавить Автора</button>
+            </div>
+                <button type="submit" name="add_author" class="btn effect04" data-sm-link-text="Нажмите ЛКМ">Добавить Автора</button>
                
             </form>
         </div>
@@ -61,10 +102,21 @@
             </nav>
             <form method="POST" action="/add_settings/" name="add_serie">
                 {% csrf_token %}
-                <input name="name_serie" type="text" placeholder="Название серии">
-                <input name="information_serie" type="text" placeholder="Информация об серии">
+                <div class="group">
+                    <label>Название</label>
+                <input name="name_serie" type="text" class="input_area">
+                <span class="bar"></span>
+            </div>
+                <div class="group">
+                    <label class="label_1"> Инфромация</label>
+                <textarea name="information_serie" type="text" class="information_text_area_serie"> </textarea>
+            </div>
+                <div class="group">
+                    <label>Серия законечена?</label>
                 <input name="is_ended" type="checkbox" value="True" placeholder="Серия закончена?">
-                <button type="submit" name="add_serie">Добавить серию</button>
+            </div>
+
+                <button type="submit" name="add_serie" class="btn effect04" data-sm-link-text="Нажмите ЛКМ">Добавить серию</button>
                
             </form>
         </div>
@@ -79,9 +131,16 @@
             </nav>
             <form method="POST" action="/add_settings/" name="add_author">
                 {% csrf_token %}
-                <input name="name_genre" type="text" placeholder="Название жанра">
-                <input name="information_of_genre" type="text" placeholder="Информация об жанре">
-                <button type="submit" name="add_genre">Добавить жанр</button>
+                <div class="group">
+                <label>Название Жанра</label>
+                <input name="name_genre" type="text" class="input_area">
+                <span class="bar"></span>
+            </div>
+            <div class="group">
+                <label class="label_2"> Информация о жанре</label>
+                <textarea name="information_of_genre" type="text" class="information_text_area_genre"> </textarea>
+            </div>
+                <button type="submit" name="add_genre" class="btn effect04" data-sm-link-text="Нажмите ЛКМ">Добавить жанр</button>
                
             </form>
         </div>
@@ -96,8 +155,12 @@
             </nav>
             <form method="POST" action="/add_settings/" name="add_author">
                 {% csrf_token %}
-                <input name="name_language" type="text" placeholder="Имя языка">
-                <button type="submit" name="add_language">Добавить язык</button>
+                <div class="group">
+                    <label>Язык</label>
+                <input name="name_language" type="text" class="input_area">
+                <span class="bar"></span>
+            </div>
+                <button type="submit" name="add_language" class="btn effect04" data-sm-link-text="Нажмите ЛКМ">Добавить язык</button>
                
             </form>
         </div>
@@ -112,14 +175,23 @@
             </nav>
             <form method="POST" action="/add_settings/" name="add_pb">
                 {% csrf_token %}
-                <input name="name_publishing_hose" type="text" placeholder="Название издательства">
-                <input name="location" type="text" placeholder="Локация">
-                <button type="submit" name="add_publishing_house">Добавить серию</button>
+                <div class="group">
+                    <label>Название издательства</label>    
+                <input name="name_publishing_hose" type="text" class="input_area">
+                 <span class="bar"></span>
+            </div>
+            <div class="group">
+                <label>Локация</label>
+                <input name="location" type="text" class="input_area">
+                <span class="bar"></span>
+            </div>
+                <button type="submit" name="add_publishing_house" class="btn effect04" data-sm-link-text="Нажмите ЛКМ">Добавить серию</button>
                
             </form>
         </div>
         <br>
         {%block content%}
         {%endblock%}
+    </div>
  </body>
 </html>

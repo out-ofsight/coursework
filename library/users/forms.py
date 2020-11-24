@@ -20,7 +20,7 @@ class CreationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailField(label='Ваша почта')
 
     class Meta:
         model = User
@@ -37,3 +37,4 @@ class ProfileUpdateForm(forms.ModelForm):
             'image',
             'service'
         ]
+        

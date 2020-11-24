@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
    # path('settings/', views.add_settings_forms, name='settings'),
     path('books', BookListView.as_view(template_name='start_menu/books.html'), name='books'),
+    path('book/<int:pk>/', views.BookDetailView.as_view(template_name='start_menu/book_detail.html'), name='book_detail'),
     path('add_settings/', views.add_settings_forms, name='settings'),
     path('update_settings/', ServiceListView.as_view(template_name='settings/update_settings.html'), name='update_settings'),
     path('update_settings/<int:pk>/', ServiceDetailView.as_view(template_name='settings/detail_service.html'), name='detail_view'),

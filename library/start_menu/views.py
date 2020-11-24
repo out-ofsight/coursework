@@ -230,13 +230,7 @@ class BookListView(ListView):
     def get_author(self):
         author_name = Book.objects.get(name=self.name).author_book.all()
 
-def book_view(request):
-    
-def get_author(book):
-    
-Library.start_menu_author
 def add_settings_forms(request):
-
 
     book_form = BookAddForm(request.POST)
     context = {'book_form': book_form}
@@ -291,4 +285,6 @@ def add_settings_forms(request):
             return redirect('settings')
     return render(request, 'settings/settings.html', context)
 
-
+class BookDetailView(DetailView):
+    context_object_name = 'book'
+    model = Book

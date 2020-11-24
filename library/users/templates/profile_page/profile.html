@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <meta charset="utf-8">
         <title> Ваш кабинет </title>
         <link rel="stylesheet" href="{% static 'profile_page/styles.css' %}">
     </head>
 
     <body>
+        <div class="all_data">
         <nav class="navigation_bar"> 
             <a class="navigation_links" href="">Книги</a>
             <a class="navigation_links">Ваша библеотека</a>
@@ -23,13 +23,41 @@
                 Сервесы
             </a>
         </nav>
+        
         <form class="input_data_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
+        <div class="username_field">
+            <h4>Ваше имя</h4>
+            {{u_form.username}}
+            <div>
+                <button type="submit" class="registation_button">Обновить</button>
+            </div>
+        </div>  
+        <div class="username_field">
+            <h4>Ваша почта</h4>
+            {{u_form.email}}
+            <div>
+                <button type="submit" class="registation_button">Обновить</button>
+            </div>
+        </div>
+        <div class="image_field">
+            <h4>Картинка</h4>
+            {{p_form.image}}
+            <div>
+                <button type="submit" class="registation_button">Обновить</button>
+            </div>
+        </div> 
+        <div class="service_field">
+            <h4>Выбранный сервис</h4>
+            {{p_form.service}}
+        </div> 
+        
             
+        
             <button type="submit" class="registation_button">Обновить</button>
         </form>
+    
+    </div>
     </body>
 
 </html>

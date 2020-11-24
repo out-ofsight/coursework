@@ -3,7 +3,7 @@
 {% for book in books %}
     <div class="book_block_all_information">
         <div class="book_block_title">
-            <a href="">{{book.name}}</a>
+            <a href="{% url 'book_detail' book.id %}">{{book.name}}</a>
         </div>
         <div class="book_block_author">
             {{book.get_author}}
@@ -12,6 +12,11 @@
             {{book.description}}
             
         </div>
+        {% for author in book.author_book.all %}
+           <div class="book_block_authors">
+               {{author}}
+            </div> 
+        {% endfor %}
         <img src="{{ book.cover_image.url }}">
     </div>
 {% endfor %}
