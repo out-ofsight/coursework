@@ -5,6 +5,7 @@ from .models import Service, Author, Book, Serie, Genre, Language, Publishing_Ho
 from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm, GenreUpdateForm, SerieUpdateForm, LanguageUpdateForm, PublishingHouseUpdateForm, BookAddForm
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db import connection
+from lxml import objectify
 # Create your views here.
 
 def home(request):
@@ -232,9 +233,9 @@ class BookListView(ListView):
 
 def add_settings_forms(request):
 
-    book_form = BookAddForm(request.POST)
+    book_form = BookAddForm(request.POST, request.FILES)
     context = {'book_form': book_form}
-
+    
     if 'add_service' in request.POST:
         service_name = request.POST['service_name']
         opportunities = request.POST['opportunities']
@@ -281,10 +282,22 @@ def add_settings_forms(request):
             publishing_house.save()
     
     if book_form.is_valid():
-            book_form.save()
-            return redirect('settings')
+        book_form.save()
+        return redirect('settings')
     return render(request, 'settings/settings.html', context)
 
 class BookDetailView(DetailView):
     context_object_name = 'book'
     model = Book
+    
+
+def get_Book(request, pk):
+    book = Book.objects.get(id=pk)
+    xml_book = objectify.parse(book.book_text_path)
+    root = xml_book.getroot()
+    temp = [child.text for child in root.Book.getchildren()]
+    context = {
+        'book':temp,
+    }
+    return render(request,'start_menu/book_detail.html', context)
+

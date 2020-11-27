@@ -76,7 +76,7 @@ class Book(models.Model):
     page_count = models.BigIntegerField()
     cover_image = models.ImageField(default='default_book_cover.jpg', upload_to='cover_books')
     description = models.TextField(max_length=300)
-    book_text_path = models.CharField(max_length=100)
+    book_text_path = models.FileField(blank=True, upload_to='books')
     year_of_wrote = models.DateField()
     year_of_publishing = models.DateField()
     id_of_publish_house = models.ForeignKey(Publishing_House, on_delete=models.CASCADE)

@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
-    <body>
-        {{book}}
-        {% for author in book.author_book.all %}
-           <div class="book_block_authors">
-               {{author}}
-            </div> 
-        {% endfor %}
-        {{book.description}}
+    <head>
 
+    </head>
+
+    <body>
+        {{book.name}}
     </body>
 </html>
