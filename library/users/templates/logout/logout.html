@@ -1,0 +1,8 @@
+{% include "start_menu/start_menu.html" %}
+{%block content%}
+
+{% for book in books %}
+<img src="{{ book.cover_image.url }}">
+{% endfor %}
+
+{% endblock %}

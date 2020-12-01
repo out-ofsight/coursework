@@ -9,7 +9,7 @@
 
 			<p>Удалить элемент? "{{object}}"?</p>
 
-			<form action="{% url 'delete_genre' object.id  %}" method="POST">
+			<form action="{% url 'delete_author' object.id  %}" method="POST">
 				
 				{% csrf_token %}
 				<a class="btn btn-warning" href="{% url 'update_settings' %}">Отмена</a>

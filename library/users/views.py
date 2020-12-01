@@ -4,6 +4,13 @@ from django.contrib import messages
 from .forms import CreationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from start_menu.models import Book
+
+
+
 
 def registerPage(request):  
     form = CreationForm()
@@ -13,6 +20,15 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
             form.save()
             messages.success(request, f'Аккаунт создан ' + username)
+            template = render_to_string('email/template.html', {'name': username})
+            email = EmailMessage(
+                'Добро пожаловать',
+                template,
+                settings.EMAIL_HOST_USER,
+                [form.cleaned_data.get('email')]
+            )
+            email.fail_silently = False
+            email.send()
             return redirect('start_search_menu')
     else:
         form = CreationForm()

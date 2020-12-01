@@ -39,6 +39,12 @@ class LanguageUpdateForm(forms.ModelForm):
 class DateInput(forms.DateInput):
     input_type = 'date'
     
+class BookUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = '__all__'
+
+
 
 class BookAddForm(forms.ModelForm):
     

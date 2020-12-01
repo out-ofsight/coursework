@@ -7,6 +7,7 @@
         <a class="mr-2" href="#">{{ object.name }}</a>
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update_publishing_house_form' object.id %}">Update</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'delete_PB' object.id %}">Delete</a>
           </div>
       </div>
     </div>

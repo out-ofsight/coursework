@@ -1,0 +1,22 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+<div>
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div> 
+        {{field.label}}
+        {{field}}
+    </div>
+    {% endfor %}
+    
+    <input type="submit" name="Submit">
+</form>
+</div>
+{% endblock content %}
+</body>
+</html>

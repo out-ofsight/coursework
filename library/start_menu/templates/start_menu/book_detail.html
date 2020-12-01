@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,6 +6,36 @@
     </head>
 
     <body>
-        {{book.name}}
+        <div id="list">
+            {%for data in text%}
+            <div>{{data}}</div>
+            {%endfor%}
+        </div> 
+
+        
+        {% if text.has_other_pages %}
+        <div class="pagination">
+          {% if text.has_previous %}
+            <a href="?page={{ text.previous_page_number }}">&laquo;</a>
+          {% else %}
+            <span>&laquo;</span>
+          {% endif %}
+          {% for i in text.paginator.page_range %}
+            {% if text.number == i %}
+                <span>{{ i }} <span class="sr-only">(current)</span></span>
+            {% else %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+          {% endfor %}
+          {% if text.has_next %}
+            <a href="?page={{ text.next_page_number }}">&raquo;</a>
+          {% else %}
+            <span>&raquo;</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+
+        <script src="{% static 'book_text/pagination.js' %}"></script>
     </body>
 </html>
