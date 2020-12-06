@@ -1,6 +1,9 @@
 {% extends "start_menu/index.html" %}
 {% block content %}
     {% for book in books %}
-    <img src="{{ book.cover_image.url }}">
+    <div>
+        <a href="{% url 'book_detail' book.id %}">{{book.name}}</a>
+        <div><img src="{{ book.cover_image.url }}"></div>
+    </div>
     {% endfor %}
  {% endblock %}

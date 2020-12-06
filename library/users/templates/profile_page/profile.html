@@ -12,8 +12,9 @@
         <div class="all_data">
         <nav class="navigation_bar"> 
             <a class="navigation_links" href="">Книги</a>
-            <a class="navigation_links">Ваша библеотека</a>
+            <a class="navigation_links" href="{% url 'user_library' %}">Ваша библеотека</a>
             <a class="navigation_links" href="{% url 'start_search_menu' %}">Главное меню</a>
+            <a class="navigation_links" href="{% url 'user_report' %}">Получить отчет</a>
         </nav>
         <nav>
             <a class="settings">

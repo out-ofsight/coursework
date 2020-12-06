@@ -1,0 +1,20 @@
+{% extends "start_menu/index.html" %}
+{%load static%}
+{% block content %}
+{%for serie in series%}
+<a href="{% url 'serie_page' serie.id %}" class="link_to_detail_view">{{serie.name}}</a>
+{{serie.description}}
+</div>
+</div>
+{%endfor%}
+<div>
+    <form action="{% url 'series_page' %}" method="POST">
+    {% csrf_token %}
+    
+    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
+        {{filter_form}}
+    <input type="submit" >
+    </form>
+</div>
+{% endblock %}

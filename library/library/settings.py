@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'django_cleanup',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -95,6 +96,7 @@ DATABASES = {
         'PASSWORD': 'rootroot',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'CHARSET':"utf8",
     }
 }
 

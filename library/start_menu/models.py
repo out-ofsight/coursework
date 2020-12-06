@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import os
 
 
 class Publishing_House(models.Model):
@@ -36,7 +37,7 @@ class Author(models.Model):
     name = models.CharField(max_length=50)
     information_about = models.TextField(max_length=300)
     birth_date = models.DateField()
-    death_date = models.DateField()
+    death_date = models.DateField(blank=True)
     def __str__(self):
         return self.name
 
@@ -103,4 +104,5 @@ class Book(models.Model):
 class User_Library(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
     id_book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
 

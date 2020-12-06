@@ -30,19 +30,25 @@
         <nav id="navigation">
             {% if user.is_authenticated %}
             <a class="navigation_links" href="{% url 'books' %}">Книги</a>
-            <a class="navigation_links">Жанры</a>
-            <a class="navigation_links">Авторы</a>
-            <a class="navigation_links">Серии</a>
+            <a class="navigation_links" href="{% url 'genre_page' %}">Жанры</a>
+            <a class="navigation_links" href="{% url 'author_page' %}">Авторы</a>
+            <a class="navigation_links" href="{% url 'series_page' %}">Серии</a>
+            <a class="navigation_links" href="{% url 'user_library' %}">Моя библеотека</a>
             <a class="navigation_links" href="{% url 'profile' %}">Мой кабинет</a>
             {% endif %}
             {% if user.is_superuser %}   
             <a class="navigation_links" href="{% url 'settings' %}"> Настройка сервисов </a>
             {% endif %}
-    </nav>
+        </nav>
         <aside id="genres">
             <nav id="genrenavigation">
             </nav>
         </aside>
-        {% block content %} {% endblock %}
+        <div class="start_menu" style="margin-top: 50px;">
+            {% block content %}
+
+             {% endblock %}
+        </div>
+        <script src="{% static 'book_text/pagination.js' %}"></script>
     </body>
 </html>

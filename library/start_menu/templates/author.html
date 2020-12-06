@@ -1,0 +1,6 @@
+<div>{{author.name}}</div>
+<div>{{author.information_about}}</div>
+{%for book in books%}
+<a href="{% url 'book_detail' book.id %}">{{book.name}}</a>
+<div>{{book.description}}</div>
+{% endfor %}

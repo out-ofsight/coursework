@@ -1,0 +1,15 @@
+{% extends "start_menu/index.html" %}
+{% load static %}
+{% block content %}
+{% for genre in genres %}
+<div>
+<a href="{% url 'genre_book_page' genre.id %}" class="link_to_detail_view">{{genre.name}}</a>
+</div>
+{% endfor %}
+<form action="{% url 'genre_page' %}" method="POST">
+    {% csrf_token %}
+    
+    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
+    </form>
+{% endblock %}

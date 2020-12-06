@@ -1,0 +1,14 @@
+{% extends "start_menu/index.html" %}
+{% block content %}
+{% for author in authors %}
+<div>
+<a href="{% url 'author_book' author.id %}">{{author.name}}</a>
+</div>
+{% endfor %}
+<form action="{% url 'author_page' %}" method="POST">
+    {% csrf_token %}
+    
+    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
+    </form>
+{% endblock %}

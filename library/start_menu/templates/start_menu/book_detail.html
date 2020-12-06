@@ -6,13 +6,25 @@
     </head>
 
     <body>
+      
+      {% if is_service_include %}
+      <form class="add_book_to_library" method="POST" action="{% url 'add_book_to_library' %}">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+        <button type="submit" name='book_id' value={{book_id}}>Добавить в библеотеку</button>
+        {% endif %}
+      </form>
+      
+
+
         <div id="list">
             {%for data in text%}
             <div>{{data}}</div>
             {%endfor%}
         </div> 
 
-        
+
+        {% if user.is_authenticated %}
         {% if text.has_other_pages %}
         <div class="pagination">
           {% if text.has_previous %}
@@ -34,8 +46,8 @@
           {% endif %}
         </div>
       {% endif %}
-
-
+        {% endif%}
+        {% endif %}
         <script src="{% static 'book_text/pagination.js' %}"></script>
     </body>
 </html>

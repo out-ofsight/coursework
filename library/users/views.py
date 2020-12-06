@@ -7,9 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
-from start_menu.models import Book
-
-
+from start_menu.models import Book, Profile
+from django.contrib.auth.models import User
 
 
 def registerPage(request):  
@@ -55,6 +54,8 @@ def logoutUser(request):
 
 @login_required
 def profile(request):
+    user = request.user
+    user_profile = Profile.objects.all().get(user_id__pk=user.id)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -62,6 +63,21 @@ def profile(request):
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
+            user_service = user_profile.service
+            books = Book.objects.filter(service_book__name=user_service).values('name')
+            if p_form.cleaned_data['service'] != user_profile.service:
+                books_name = ''            
+                for i in books:
+                    books_name+=i['name'] + ', '
+                template = render_to_string('email/new_service.html', {'name': user.username, 'books': books_name})
+                email = EmailMessage(
+                'Сервис обновлён',
+                template,
+                settings.EMAIL_HOST_USER,
+                [user.email]
+            )
+                email.fail_silently = False
+                email.send()
             p_form.save()
             messages.success(request, f'Вы обновили данные!')
             return redirect('start_search_menu')

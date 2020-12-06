@@ -1,0 +1,5 @@
+<form class="add_book_to_library" method="POST" action="{% url 'delete_user_book' object.id%}">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" name="Confirm">
+    <a class="btn btn-warning" href="{% url 'user_library' %}">Отмена</a>
+  </form>

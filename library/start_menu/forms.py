@@ -44,7 +44,27 @@ class BookUpdateForm(forms.ModelForm):
         model = Book
         fields = '__all__'
 
-
+class FilterForm(forms.Form):
+    genres = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        widget = forms.CheckboxSelectMultiple,
+        required=False
+    )
+    authors = forms.ModelMultipleChoiceField (
+        queryset=Author.objects.all(),
+        widget = forms.CheckboxSelectMultiple,
+        required=False
+    )
+    series = forms.ModelMultipleChoiceField (
+        queryset=Serie.objects.all(),
+        widget = forms.CheckboxSelectMultiple,
+        required=False
+    )
+    PB = forms.ModelMultipleChoiceField (
+        queryset=Publishing_House.objects.all(),
+        widget = forms.CheckboxSelectMultiple,
+        required=False
+    )
 
 class BookAddForm(forms.ModelForm):
     
@@ -72,9 +92,13 @@ class BookAddForm(forms.ModelForm):
         model = Book
         fields = '__all__'
         
+class SearchForm(forms.Form):
+    book_name = forms.CharField(max_length=50)
 
 class PublishingHouseUpdateForm(forms.ModelForm):
     class Meta:
         model = Publishing_House
         fields = '__all__'
 
+class SerieFilterForm(forms.Form):
+    is_ended_serie = forms.BooleanField(required=False)

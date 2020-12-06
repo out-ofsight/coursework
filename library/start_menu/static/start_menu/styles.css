@@ -1,8 +1,35 @@
+.link_to_detail_view {
+    text-decoration: none;
+    font-family: helvetica;
+    margin-top: 20px;
+}
+.all_books {
+    margin-left: 500px;
+}
+.link_to_detail_view:hover {
+    text-decoration: underline;
+  }
+  
+.link_to_detail_view:active {
+    color: #000;
+  }
+  
+.link_to_detail_view:visited {
+    color: purple;
+  }
+.temp {
+    background-color: #FAF9F7;
+    position: absolute;
+    height: 500px;
+    width: 230px;
+}
 * {
     margin: 0;
     padding: 0;
 }
-
+.start_menu {
+    margin-top: 150px;
+}
 #header {
     background: url(https://media.giphy.com/media/bEPPUg7pKaZysuF4GM/giphy.gif);
     background-size: cover;
@@ -35,6 +62,7 @@
 }
 #navigation {
     text-align: center;
+
 }
 #login_and_registration {
     position: absolute;

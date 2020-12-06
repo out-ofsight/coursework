@@ -1,0 +1,59 @@
+{% for i in PH %}
+<div>
+    <h2>издательства и книги </h2>
+{{i}}
+{{i.num_books}}
+</div>
+{% endfor %}
+{% for i in author %}
+<div>
+    <h2>автор и книги </h2>
+{{i}}
+{{i.num_books}}
+</div>
+{% endfor %}
+
+{% for i in service %}
+<div>
+    <h2>сервесы и пользыватели </h2>
+{{i}}
+{{i.num_service}}
+</div>
+{% endfor %}
+<div>
+<h2>Сегодня зашло пользывателей: {{user_logged_in}}</h2>
+</div>
+<div>
+    <h2>Автор-Жанр-Кл-во книг в этом жанре</h2>
+    {% for i in genre_author %}
+    <div>
+    {{i.author_book__name}}
+    {{i.genre_book__name}}
+    {{i.id__count}}
+    
+    </div>
+    {% endfor %}
+</div>
+<div>
+    <h2> Перекрестный запрос </h2>
+    <table class="table" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Service</th>
+    </tr>
+
+        {% for user in users %}
+        <tr>
+            <th>{{user.id}}</th>
+            <th>{{user.username}}</th>
+            {%for profile in profiles%}
+            {% if profile.user == user %}
+            <td>{{profile.service.name}}</td>
+            {%endif%}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>

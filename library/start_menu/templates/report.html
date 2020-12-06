@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+        th,td{
+        padding:3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content">
+        This is Header Print on Every Page of Pdf
+    </div>
+    {{context.time}}
+    <table class="table" border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Service</th>
+                            <th>Books</th>
+                        </tr>
+                        {%for user in context.users%}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{user.profile.service}}</td>
+                                <td>
+                                {%for book in context.library%}
+                                {%if book.id_user_id == user.id %}
+                                {%for book_name in context.books%}
+                                
+                                {%if book_name.id == book.id_book_id %}
+                                {{book_name.name}}
+                            
+                                {%endif%}
+                                {%endfor%}
+                            
+                                {%endif%}
+                                {%endfor%}
+                            </td>
+                            {%endfor%}
+
+                        </tr>
+                    </table>
+    <div id="footer_content">
+        This is Footer Print on Every Page of Pdf Page No. <pdf:pagenumber> / Total Page : <pdf:pagecount>
+    </div>
+    </body>
+    </html>
