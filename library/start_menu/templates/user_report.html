@@ -7,13 +7,18 @@
         th,td{
         padding:3px;
         }
+        #header_content {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div id="header_content">
-        This is Header Print on Every Page of Pdf
+        <h2>User report</h2>
     </div>
-    {{context.time}}
+    <div>
+    {% now "SHORT_DATETIME_FORMAT" %}
+</div>
     <table class="table" border="1">
                         <tr>
                             <th>Name</th>
@@ -24,12 +29,16 @@
                             <th>
                                 {%for book in context.books%}
                                     {{book}}
+                                    {% if forloop.last %}
+                                    .
+                                    {%else%}
+                                    ,
+                                    {%endif%}
                                 {%endfor%}
                             </th>
                         </tr>
                     </table>
     <div id="footer_content">
-        This is Footer Print on Every Page of Pdf Page No. <pdf:pagenumber> / Total Page : <pdf:pagecount>
     </div>
     </body>
     </html>

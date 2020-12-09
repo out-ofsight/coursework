@@ -63,9 +63,10 @@ def profile(request):
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            user_service = user_profile.service
-            books = Book.objects.filter(service_book__name=user_service).values('name')
-            if p_form.cleaned_data['service'] != user_profile.service:
+            p_form.save()
+            if p_form.cleaned_data['service']:
+                user_service = p_form.cleaned_data['service']
+                books = Book.objects.filter(service_book__name=user_service).values('name')
                 books_name = ''            
                 for i in books:
                     books_name+=i['name'] + ', '
@@ -79,7 +80,6 @@ def profile(request):
                 email.fail_silently = False
                 email.send()
             p_form.save()
-            messages.success(request, f'Вы обновили данные!')
             return redirect('start_search_menu')
     else:
         u_form = UserUpdateForm(instance=request.user)

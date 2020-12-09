@@ -1,21 +1,22 @@
+<h2>издательства и книги </h2>
 {% for i in PH %}
 <div>
-    <h2>издательства и книги </h2>
+
 {{i}}
 {{i.num_books}}
 </div>
 {% endfor %}
+<h2>автор и книги </h2>
 {% for i in author %}
 <div>
-    <h2>автор и книги </h2>
 {{i}}
 {{i.num_books}}
 </div>
 {% endfor %}
-
+<h2>сервесы и пользыватели </h2>
 {% for i in service %}
 <div>
-    <h2>сервесы и пользыватели </h2>
+
 {{i}}
 {{i.num_service}}
 </div>

@@ -269,7 +269,11 @@ def add_settings_forms(request):
         information = request.POST['information']
         birth = request.POST['birth']
         death = request.POST['death']
-        if birth < death:
+        if death == '':
+            author = Author(name=name,information_about=information,birth_date=birth)
+            if not Author.objects.filter(name=name).exists():
+             author.save()
+        elif birth < death:
             author = Author(name=name,information_about=information,birth_date=birth,death_date=death)
             if not Author.objects.filter(name=name).exists():
              author.save()
@@ -305,7 +309,7 @@ def add_settings_forms(request):
             publishing_house.save()
     
     if book_form.is_valid():
-        if book_form.cleaned_data['year_of_wrote'] < book_form.cleaned_data['year_of_publishing']:
+        if book_form.cleaned_data['year_of_wrote'] < book_form.cleaned_data['year_of_publishing'] and book_form.cleaned_data['page_count'] > 0:
             book_form.save()
             return redirect('settings')
         else:
@@ -422,8 +426,7 @@ def bookList(request):
                 books = books.order_by('name')
         if search_form.is_valid():
             book_name = search_form.cleaned_data['book_name']
-            print(book_name)
-            books = Book.objects.filter(name=book_name)
+            books = Book.objects.filter(name__contains=book_name)
     context = {
         'books': books,
         'genres': genres,

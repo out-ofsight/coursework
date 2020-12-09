@@ -24,12 +24,10 @@ class GenreUpdateForm(forms.ModelForm):
         model = Genre
         fields = '__all__'
 
-
 class SerieUpdateForm(forms.ModelForm):
     class Meta:
         model = Serie
         fields = '__all__'
-
 
 class LanguageUpdateForm(forms.ModelForm):
     class Meta:
