@@ -1,15 +1,35 @@
 {% extends "start_menu/index.html" %}
 {% load static %}
 {% block content %}
+<div class="temp">
+    <div class="search_form_genre">
+        <button type="submit" name='decrease_sort' id="decrease_sort">Сортировать по убыванию</button>
+        <button type="submit" name='increase_sort' id="increase_sort">Сортировать по возрастанию</button>
+        <form class="search_form_box" method="POST">
+            {% csrf_token %}
+            {{search_form}}
+            <input type="submit" name="search_by_book_name" class="submit_button" value="Поиск">
+        </form>
+    <form class="cancel" method="POST">
+        {% csrf_token %}
+        <button type="submit" name='cancel' class="submit_button">Отмена фильтров</button>
+    </form>
+    <form action="{% url 'genre_page' %}" method="POST">
+        {% csrf_token %}
+        {{filter_form}}
+        <input type="submit" name="filter" value="Выполнить фильтрацию" class="submit_button">
+        </form>
+    </div>
+</div>
+<div class="all_data">
 {% for genre in genres %}
-<div>
-<a href="{% url 'genre_book_page' genre.id %}" class="link_to_detail_view">{{genre.name}}</a>
+<div class="genre" data-sort="{{genre.name}}">
+    <a href="{% url 'genre_book_page' genre.id %}" class="link_to_detail_view">{{genre.name}}</a>
+    <div>
+        {{genre.description}}
+    </div>
 </div>
 {% endfor %}
-<form action="{% url 'genre_page' %}" method="POST">
-    {% csrf_token %}
-    
-    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
-    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
-    </form>
+</div>
+<div class="paginator" onclick="pagination(event)"></div>
 {% endblock %}

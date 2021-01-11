@@ -23,9 +23,8 @@
     background-color: transparent;
     width: 167px;
     height: 40px;
-    position: relative;
-    margin: 0 auto;
     color: #ffffff;
+    position: relative;
 
 }
 .formbox {
@@ -41,12 +40,15 @@
     color: #ffffff;
     background-color: transparent;
     cursor: pointer;
-    font-size: 15px;
     padding: 15px;
     position: absolute;
     bottom: 15px;
     right: 15px;
     font-size: 20px;
+}
+.button_position {
+    position: relative;
+    top: 1px;
 }
 .registation_button:hover {
     background-color: #ffffff;
@@ -54,16 +56,277 @@
     transition-duration: 1s;
 }
 input::-webkit-input-placeholder { color: #ffff; }
-.input_field {
+.input_data_form {
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+
+
+
+
+.form_input_username label {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
     width: 100%;
-    padding: 20px 0;
-    font-size: 20px;
-    margin: 5px 0;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-bottom: 1px solid #ffffff;
-    color: black;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    pointer-events: none;
+    border-bottom: 1px solid #fff;
+}
+.form_input_password label{
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    pointer-events: none;
+    border-bottom: 1px solid #fff;
+}
+.form_input_password {
+
+    position: relative;
+    top: 30px;
+    overflow: hidden;
+}
+.form_input_username {
+    position: relative;
+    overflow: hidden;
+}
+.form_input_password input {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
     background-color: transparent;
     outline: none;
+    font-size: 24px;
+}
+.form_input_username input {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 24px;
+}
+.form_input_username label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #DC143C;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.form_input_password label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #DC143C;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+.content-password {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.content-username {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+.form_input_username input:focus + .label-username .content-username,
+.form_input_username input:valid + .label-username .content-username
+{
+    transform: translateY(-150%);
+    color: #DC143C;
+}
+
+.form_input_password input:focus + .label-password .content-password,
+.form_input_password input:valid + .label-password .content-password
+{
+    transform: translateY(-150%);
+    color: #DC143C;
+}
+.form_input_username input:focus +.label-username::after,
+.form_input_username input:valid + .label-username::after {
+    transform: translateX(0%);
+
+}
+.form_input_password input:focus +.label-password::after,
+.form_input_password input:valid + .label-password::after {
+    transform: translateX(0%);
+
+}
+
+
+
+
+
+.form_input_password1 label {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    pointer-events: none;
+    border-bottom: 1px solid #fff;
+}
+.form_input_password2 label {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    pointer-events: none;
+    border-bottom: 1px solid #fff;
+}
+.form_input_password1 {
+
+    position: relative;
+    top: 60px;
+    overflow: hidden;
+}
+.form_input_password2 {
+
+    position: relative;
+    top: 90px;
+    overflow: hidden;
+}
+.form_input_password1 input {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 24px;
+}
+.form_input_password2 input {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 24px;
+}
+.form_input_password1 label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #DC143C;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+.form_input_password2 label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #DC143C;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+
+.content-password1 {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.content-password2 {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.form_input_password1 input:focus + .label-password1 .content-password1,
+.form_input_password1 input:valid + .label-password1 .content-password1
+{
+    transform: translateY(-150%);
+    color: #DC143C;
+}
+
+.form_input_password2 input:focus + .label-password2 .content-password2,
+.form_input_password2 input:valid + .label-password2 .content-password2
+{
+    transform: translateY(-150%);
+    color: #DC143C;
+}
+.form_input_password1 input:focus +.label-password1::after,
+.form_input_password1 input:valid + .label-password1::after {
+    transform: translateX(0%);
+
+}
+.form_input_password2 input:focus +.label-password2::after,
+.form_input_password2 input:valid + .label-password2::after {
+    transform: translateX(0%);
+
+}
+
+.form_input_email {
+
+    position: relative;
+    top: 30px;
+    overflow: hidden;
+}
+.form_input_email label {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    pointer-events: none;
+    border-bottom: 1px solid #fff;
+}
+.form_input_email input {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 24px;
+}
+.content-email {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+    padding-bottom: 25px;
+}
+
+.regestration_button {
+    position: relative;
+    top: 175px;
 }

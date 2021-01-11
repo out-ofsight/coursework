@@ -4,22 +4,25 @@
     <head>
         <meta charset="utf-8">
         <title> Авторы </title>
-        <link rel="stylesheet" href="{% static 'settings/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'settings/styles_for_list.css' %}">
     </head>
     <body>
-        <nav>
+        <nav class="navigation">
             <a href="{% url 'settings' %}">
                 Добавить язык
             </a>
-            <a href="{% url 'update_settings' %}">
+            <a href="{% url 'language_update' %}">
                 Список языкок
             </a>
         </nav>
         
         {% block content %}
-        
+        <div>
+            <h2 style="text-align: center;"> Список языков</h2>
+        </div>
+        <div class="list">
         {% for language in languages %}
-        <h2><a class="article-title" href="{% url 'detail_language' language.id %}">{{ language.name }}</a></h2>
+        <h2 class="headline"><a class="article-title" href="{% url 'detail_language' language.id %}">{{ language.name }}</a></h2>
         {% endfor %}
         </div>
         

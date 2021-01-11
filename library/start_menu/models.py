@@ -44,8 +44,8 @@ class Author(models.Model):
 class Service(models.Model):
     
     name = models.CharField(max_length=100, verbose_name='Название сервиса')
-    description = models.TextField(max_length=300, verbose_name='Описание')
-    time_to_use = models.DateField()
+    description = models.TextField(max_length=301, verbose_name='Описание')
+    time_to_use = models.IntegerField()
         
     def __str__(self):
         return self.name
@@ -54,11 +54,11 @@ class Service(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, blank=True)
-    server_connection_date = models.DateField(null=True, blank=True)
+    service = models.ForeignKey(Service, editable=True, on_delete=models.CASCADE, blank=True)
+    server_connection_date = models.DateField(editable=True, blank=True, verbose_name='Время подключения', null=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
-
+#, auto_now_add=True
     def __str__(self):
         return f'{self.user.username} Profile'
     

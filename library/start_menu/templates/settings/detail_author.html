@@ -4,7 +4,7 @@
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ object.name }}</a>
+        <h2>{{ object.name }}</h2>
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update_author_form' object.id %}">Update</a>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'delete_author' object.id %}">Delete</a>

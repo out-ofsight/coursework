@@ -11,53 +11,51 @@
     <body>
         <div class="all_data">
         <nav class="navigation_bar"> 
-            <a class="navigation_links" href="">Книги</a>
+            <a class="navigation_links" href="{% url 'books' %}">Книги</a>
             <a class="navigation_links" href="{% url 'user_library' %}">Ваша библеотека</a>
             <a class="navigation_links" href="{% url 'start_search_menu' %}">Главное меню</a>
             <a class="navigation_links" href="{% url 'user_report' %}">Получить отчет</a>
         </nav>
-        <nav>
-            <a class="settings">
-                Настроики
-            </a>
-            <a class="settings">
-                Сервесы
-            </a>
-        </nav>
-        
-        <form class="input_data_form" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-        <div class="username_field">
-            <h4>Ваше имя</h4>
-            {{u_form.username}}
-            <div>
-                <button type="submit" class="registation_button">Обновить</button>
+        <div class="box">
+            <form class="input_data_form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="username_field">
+                <h4>Ваше имя</h4>
+                {{u_form.username}}
+                <div>
+                    <button type="submit" class="registation_button">Обновить</button>
+                </div>
+            </div>  
+            <div class="email_field">
+                <h4>Ваша почта</h4>
+                {{u_form.email}}
+                <div>
+                    <button type="submit" class="registation_button">Обновить</button>
+                </div>
             </div>
-        </div>  
-        <div class="username_field">
-            <h4>Ваша почта</h4>
-            {{u_form.email}}
-            <div>
-                <button type="submit" class="registation_button">Обновить</button>
-            </div>
-        </div>
-        <div class="image_field">
-            <h4>Картинка</h4>
-            {{p_form.image}}
-            <div>
-                <button type="submit" class="registation_button">Обновить</button>
-            </div>
-        </div> 
-        <div class="service_field">
-            <h4>Выбранный сервис</h4>
-            {{p_form.service}}
-        </div> 
-        
+            <div class="image_field">
+                <h4>Картинка</h4>
+                {{p_form.image}}
+                <div>
+                    <button type="submit" class="registation_button">Обновить</button>
+                </div>
+            </div> 
+            <div class="service_field">
+                <h4>Выбранный сервис
+                    {% if service_time %}
+                    , работает до {{ service_time }}
+                    {% endif %}
+                </h4>
+                {{p_form.service}}
+                <div>
+                    <button type="submit" class="registation_button">Обновить</button>
+                </div>
+            </div> 
             
-        
-            <button type="submit" class="registation_button">Обновить</button>
-        </form>
-    
+                
+            
+            </form>
+        </div>
     </div>
     </body>
 

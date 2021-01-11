@@ -1,20 +1,38 @@
 {% extends "start_menu/index.html" %}
 {%load static%}
 {% block content %}
-{%for serie in series%}
-<a href="{% url 'serie_page' serie.id %}" class="link_to_detail_view">{{serie.name}}</a>
-{{serie.description}}
-</div>
-</div>
-{%endfor%}
-<div>
-    <form action="{% url 'series_page' %}" method="POST">
-    {% csrf_token %}
-    
-    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
-    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
+
+<div class="temp">
+    <button type="submit" name='decrease_sort' id="decrease_sort">Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort' id="increase_sort">Сортировать по возрастанию</button>
+    <div class="search_form_box">
+        <form class="search_form_box" method="POST">
+            {% csrf_token %}
+            {{search_form}}
+            <input type="submit" name="search_by_book_name" class="submit_button" value="Поиск">
+        </form>
+        </div>
+    <div class="filter_sort_form">
+        <form method="POST">
+        {% csrf_token %}
         {{filter_form}}
-    <input type="submit" >
-    </form>
+        <input type="submit" name="filter" value="Выполнить фильтрацию" class="submit_button">
+        <div>
+            <button type="submit" name='cancel' class="submit_button">Отмена фильтров</button>
+        </div>
+        </form>
 </div>
+
+</div>
+<div class="all_data">
+    {%for serie in series%}
+    <div class="serie" data-sort="{{serie.name}}">
+        <a href="{% url 'serie_page' serie.id %}" class="link_to_detail_view">{{serie.name}}</a>
+        <div>
+            {{serie.description}}
+        </div>
+    </div>
+    {%endfor%}
+    </div>
+    <div class="paginator" onclick="pagination(event)"></div>
 {% endblock %}

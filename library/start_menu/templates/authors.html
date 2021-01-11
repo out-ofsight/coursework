@@ -1,14 +1,55 @@
 {% extends "start_menu/index.html" %}
+{% load static %}
 {% block content %}
-{% for author in authors %}
-<div>
-<a href="{% url 'author_book' author.id %}">{{author.name}}</a>
-</div>
-{% endfor %}
-<form action="{% url 'author_page' %}" method="POST">
-    {% csrf_token %}
-    
-    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
-    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
+<div class="temp_for_author">
+    <div class="">
+        <button type="submit" name='decrease_sort' id="decrease_sort">Сортировать по убыванию</button>
+        <button type="submit" name='increase_sort' id="increase_sort">Сортировать по возрастанию</button>
+        <form class="search_form_box" method="POST">
+            {% csrf_token %}
+            {{search_form}}
+            <input type="submit" name="search_by_book_name" class="submit_button" value="Поиск">
+        </form>
+
+        <form action="{% url 'author_page' %}" method="POST">
+            {% csrf_token %}
+            
+
+            <div>
+                {{filter_form}}
+                <div>
+                    <input type="submit" name="filter" value="Выполнить фильтрацию" class="submit_button">
+                </div>
+            </div>
+
+            </form>
+
+    <form class="cancel" method="POST">
+        {% csrf_token %}
+        <button type="submit" name='cancel' class="submit_button">Отмена фильтров</button>
     </form>
+    </div>
+</div>
+<div class="all_data" data-type="author">
+
+
+
+        {% for author in authors %}
+        <div class="author" data-sort="{{author.name}}">
+            <div>
+                <a href="{% url 'author_book' author.id %}" class="link_to_detail_view">{{author.name}}</a>
+            </div>
+
+            <div>
+                <h3>Описание</h3>
+            </div>
+
+            <div>
+                {{author.information_about}}
+            </div>
+        </div>
+        {% endfor %}
+</div>
+<div class="paginator" onclick="pagination(event)"></div>
+
 {% endblock %}

@@ -3,14 +3,36 @@
 {% block content %}
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'settings/styles_for_update.css' %}">
+    </head>
     <body>
 <div>
+    <nav class="navigation">
+        <a href="{% url 'settings' %}" class="navigation_links">
+            Назад, в меню
+        </a>
+        <a href="{% url 'author_update' %}" class="navigation_links">
+            Список авторов
+        </a>
+    </nav>
 <form action="" method="POST">
     {% csrf_token %}
-    {{form}}
+    {% for field in form %}
+    <div class="filed"> 
+        <div class="filed label">
+            <h3>
+                {{field.label}}
+            </h3>
+        </div>
+        <div class="filed input">
+            {{field}}
+        </div>
+    </div>
+    {% endfor %}
     
-    <input type="submit" name="Submit">
+    <input type="submit" name="Submit" value="Обновить" class="submit_button">
 </form>
 </div>
 {% endblock content %}

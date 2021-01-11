@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import Service, Author, Book, Serie, Genre, Language, Publishing_House, User_Library, Profile
-from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm, GenreUpdateForm, SerieUpdateForm, LanguageUpdateForm, PublishingHouseUpdateForm, BookAddForm, BookUpdateForm, FilterForm, SearchForm, SerieFilterForm
+from .forms import ServiceUpdateForm, AuthorAddForm, AuthorUpdateForm, GenreUpdateForm, SerieUpdateForm, LanguageUpdateForm, PublishingHouseUpdateForm, BookAddForm, BookUpdateForm, FilterForm, SearchForm, SerieFilterForm, FilterFormForGenre, SearchFormForGenre, AuthorFilterForm, SearchFormForAuthor, SearchFormForsSerie
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db import connection
 import xml.etree.ElementTree as ET
@@ -420,13 +420,11 @@ def bookList(request):
                     series_name.append(i)
                 series = Serie.objects.all().filter(name__in=series_name).values('name')
                 books = Book.objects.filter(id_of_series__name__in=series)
-            if 'decrease_sort' in request.POST:
-                books = books.order_by('-name')
-            if 'increase_sort' in request.POST:
-                books = books.order_by('name')
         if search_form.is_valid():
             book_name = search_form.cleaned_data['book_name']
             books = Book.objects.filter(name__contains=book_name)
+        if 'cancel' in request.POST:
+            books = Book.objects.all()
     context = {
         'books': books,
         'genres': genres,
@@ -436,14 +434,20 @@ def bookList(request):
     return render(request, 'start_menu/books.html', context=context)
 
 def user_library(request):
-    if 'delete_button' in request.POST:
-        User_Library.objects.filter(id_book=request.POST.get('delete_button')).delete()
     user_id = request.user.id
     user = User.objects.get(id=user_id)
     books = User_Library.objects.filter(id_user=user).values('id_book')
     books = Book.objects.filter(id__in=books)
+    search_form = SearchForm(request.POST)
+    if request.method == 'POST':
+        if 'delete_button' in request.POST:
+            User_Library.objects.filter(id_book=request.POST.get('delete_button')).delete()
+        if search_form.is_valid():
+            book_name = search_form.cleaned_data['book_name']
+            books = books.filter(name__contains=book_name)
     context = {
-        'books':books
+        'books':books,
+        'search_form': search_form
     }
     return render(request, 'user_library.html', context)
 
@@ -531,34 +535,75 @@ def delete_user_book(request, pk):
     return render(request, 'delete_book_fr_lb.html', context)
 
 def series_page(request):
-    filter_form = SerieFilterForm()
     series = Serie.objects.all()
+    filter_form = SerieFilterForm(request.POST)
+    search_form = SearchFormForsSerie(request.POST)
     if request.method == 'POST':
-        if 'decrease_sort' in request.POST:
-            series = series.order_by('-name','-is_ended')
-            context = {
-            'series': series,
-            'filter_form': filter_form
-        }
-            return render(request, 'start_menu/series.html', context)
-        elif 'increase_sort' in request.POST:
-            series = series.order_by('name','is_ended')
-            context = {
-                'series': series,
-                'filter_form': filter_form
-                }
-            return render(request, 'start_menu/series.html', context)
         if request.POST.get('is_ended_serie', False):
             series = series.filter(is_ended=True)
         elif request.POST.get('is_ended_serie', False) is False:
             series = series.filter(is_ended=False)
+        if 'cancel' in request.POST:
+            series = Serie.objects.all()
+        if search_form.is_valid():
+            series_name = search_form.cleaned_data['serie_name']
+            series = Serie.objects.filter(name__contains=series_name)
     context = {
-        'series': series,
-        'filter_form': filter_form
-        }
+    'series': series,
+    'filter_form': filter_form,
+    'search_form' : search_form
+    }
     return render(request, 'start_menu/series.html', context)
 
 def serie_page(request, pk):
+    search_form = SearchFormForsSerie(request.POST)
+    books = Book.objects.all().filter(id_of_series=pk)
+    if request.method == 'POST':
+        if search_form.is_valid():
+            series_name = search_form.cleaned_data['serie_name']
+            books = books.filter(name__contains=series_name)
+        if 'decrease_sort' in request.POST:
+                books = books.order_by('-name')
+        elif 'increase_sort' in request.POST:
+                books = books.order_by('name')
+        if 'cancel' in request.POST:
+            books = Book.objects.all()
+    context = {
+        'books':books,
+        'search_form': search_form
+    }
+    return render(request, 'start_menu/serie.html', context)
+
+def genres_page(request):
+    filter_form = FilterFormForGenre(request.POST)
+    search_form = SearchFormForGenre(request.POST)
+    genres = Genre.objects.all()
+    if request.method == 'POST':
+        if filter_form.is_valid():
+            genres_datafrom = filter_form.cleaned_data['genres_name']
+            genres_name = []
+            if len(genres) > 0:
+                for i in genres_datafrom:
+                    genres_name.append(i)
+                genres = Genre.objects.all().filter(name__in=genres_name)
+        if 'decrease_sort' in request.POST:
+                genres = genres.order_by('-name')
+        elif 'increase_sort' in request.POST:
+                genres = genres.order_by('name')
+        if search_form.is_valid():
+            genre_name = search_form.cleaned_data['genre_name']
+            genres = Genre.objects.filter(name__contains=genre_name)
+        if 'cancel' in request.POST:
+            genres = Genre.objects.all()
+    context = {
+        'genres':genres,
+        'filter_form': filter_form,
+        'search_form': search_form
+    }
+    return render(request, 'genres.html', context)
+
+def genre_page(request, pk):
+
 
     books = Book.objects.all().filter(id_of_series=pk)
     context = {
@@ -567,44 +612,135 @@ def serie_page(request, pk):
     return render(request, 'start_menu/serie.html', context)
 
 def genres_page(request):
+    filter_form = FilterFormForGenre(request.POST)
+    search_form = SearchFormForGenre(request.POST)
     genres = Genre.objects.all()
     if request.method == 'POST':
+        if filter_form.is_valid():
+            genres_datafrom = filter_form.cleaned_data['genres_name']
+            genres_name = []
+            if len(genres) > 0:
+                for i in genres_datafrom:
+                    genres_name.append(i)
+                genres = Genre.objects.all().filter(name__in=genres_name)
         if 'decrease_sort' in request.POST:
-            genres = genres.order_by('-name')
+            genres = Genre.objects.all().order_by('-name')
         elif 'increase_sort' in request.POST:
-            genres = genres.order_by('name')
+            genres = Genre.objects.all().order_by('name')
+        if search_form.is_valid():
+            genre_name = search_form.cleaned_data['genre_name']
+            genres = Genre.objects.filter(name__contains=genre_name)
+        if 'cancel' in request.POST:
+            genres = Genre.objects.all()
     context = {
-        'genres':genres
+        'genres':genres,
+        'filter_form': filter_form,
+        'search_form': search_form
     }
     return render(request, 'genres.html', context)
 
 def genre_page(request, pk):
 
-    books = Book.objects.filter(genre_book__id=pk)
+    
     genre = Genre.objects.get(id=pk)
+    filter_form = FilterForm(request.POST)
+    search_form = SearchForm(request.POST)
+    books = Book.objects.filter(genre_book__id=pk)
+    if request.method == 'POST':
+        if filter_form.is_valid():
+            authors = filter_form.cleaned_data['authors']
+            series = filter_form.cleaned_data['series']
+            PB = filter_form.cleaned_data['PB']
+            PB_name = []
+            authors_name = []
+            series_name = []
+            if len(PB) > 0:
+                for i in PB:
+                    PB_name.append(i)
+                    PB = Publishing_House.objects.all().filter(name__in=PB_name).values('name')
+                    books = Book.objects.filter(id_of_publish_house__name__in=PB_name)
+                books = Book.objects.filter(genre_book__name__in=genres)
+            if len(authors) > 0:
+                for i in authors:
+                    authors_name.append(i)
+                authors = Author.objects.all().filter(name__in=authors_name).values('name')
+                books = Book.objects.filter(author_book__name__in=authors)
+            if len(series) > 0:
+                for i in series:
+                    series_name.append(i)
+                series = Serie.objects.all().filter(name__in=series_name).values('name')
+                books = Book.objects.filter(id_of_series__name__in=series)
+            if 'decrease_sort' in request.POST:
+                books = books.order_by('-name')
+            if 'increase_sort' in request.POST:
+                books = books.order_by('name')
+        if search_form.is_valid():
+            book_name = search_form.cleaned_data['book_name']
+            books = Book.objects.filter(name__contains=book_name)
+        if 'cancel' in request.POST:
+            books = Book.objects.filter(genre_book__id=pk)
     context = {
         'books': books,
-        'genre': genre
+        'filter_form': filter_form,
+        'genre': genre,
+        'search_form': search_form,
     }
     return render(request, 'genre.html', context)
 
 def author(request):
     authors = Author.objects.all()
+    filter_form = AuthorFilterForm(request.POST)
+    search_form = SearchFormForAuthor(request.POST)
     if request.method == 'POST':
         if 'decrease_sort' in request.POST:
             authors = authors.order_by('-name')
+            context = {
+            'authors': authors,
+            'filter_form': filter_form,
+            'search_form' : search_form
+        }
+            return render(request, 'authors.html', context)
         elif 'increase_sort' in request.POST:
             authors = authors.order_by('name')
+            context = {
+                'authors': authors,
+                'filter_form': filter_form,
+                'search_form' : search_form
+                }
+            return render(request, 'authors.html', context)
+        if request.POST.get('is_dead', False):
+            authors = authors.filter(death_date__isnull=False)
+        elif request.POST.get('is_dead', False) is False:
+            authors = authors.filter(death_date__isnull=True)
+        if 'cancel' in request.POST:
+            authors = Author.objects.all()
+        if search_form.is_valid():
+            author_name = search_form.cleaned_data['author_name']
+            authors = Author.objects.filter(name__contains=author_name)
     context = {
-    'authors': authors
+    'authors': authors,
+    'filter_form': filter_form,
+    'search_form' : search_form
     }
     return render(request, 'authors.html', context)
 
 def author_book(request, pk):
     books = Book.objects.filter(author_book__id=pk)
     genre = Author.objects.get(id=pk)
+    search_form = SearchFormForAuthor(request.POST)
+    if request.method == 'POST':
+        if search_form.is_valid():
+            book_name = search_form.cleaned_data['author_name']
+            books = books.filter(name__contains=book_name)
+        if 'cancel' in request.POST:
+            authors = Author.objects.all()
+        if 'decrease_sort' in request.POST:
+            books = books.order_by('-name')
+        if 'increase_sort' in request.POST:
+            books = books.order_by('name')
     context = {
         'books': books,
-        'author': author
+        'author': author,
+        'search_form': search_form
     }
     return render(request, 'author.html', context)

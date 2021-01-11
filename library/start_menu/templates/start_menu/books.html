@@ -3,10 +3,13 @@
 {% block content %}
 <div class="temp">
 <div class="search_form_box">
+    <button type="submit" name='decrease_sort' id="decrease_sort">Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort' id="increase_sort">Сортировать по возрастанию</button>
     <form class="search_form_box" method="POST">
         {% csrf_token %}
         {{search_form}}
-        <input type="submit" name="search_by_book_name">
+        
+        <input type="submit" name="search_by_book_name" class="submit_button" value="Поиск">
     </form>
 </div>
 <div class="filter_sort_form">
@@ -14,15 +17,22 @@
     {% csrf_token %}
     
     {{filter_form}}
-    <button type="submit" name='decrease_sort'>Сортировать по убыванию</button>
-    <button type="submit" name='increase_sort'>Сортировать по возрастанию</button>
-    <input type="submit" name="filter">
+
+    <input type="submit" name="filter" value="Выполнить фильтрацию" class="submit_button">
     </form>
 </div>
+
+<div>
+
+    <form class="cancel" method="POST">
+        {% csrf_token %}
+        <button type="submit" name='cancel' class="submit_button">Отмена фильтров</button>
+    </form>
+    </div>
 </div>
-<div class="all_books">
+<div class="all_data" data-type="book">
 {% for book in books %}
-    <div class="book_block_all_information">
+    <div class="book_block_all_information" data-num="{{forloop.counter}}" data-sort='{{book.name}}'>
         <div class="book_block_title">
             <a href="{% url 'book_detail' book.id %}" class="link_to_detail_view">{{book.name}}</a>
         </div>
@@ -41,6 +51,7 @@
         <img src="{{ book.cover_image.url }}">
     </div>
 {% endfor %}
+    
 </div>
-
+<div class="paginator" onclick="pagination(event)"></div>
 {% endblock %}

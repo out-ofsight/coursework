@@ -13,27 +13,45 @@
                     <div class="formbox">
                         <form class="input_data_form" method="POST">
                             {% csrf_token %}
-                            <div>
+                            <div class="form_input_username">
                                 <div class='error'>{{form.errors.username}}</div>
-                                <div> Имя пользывателя </div>
+                                <div class="input_username_r">  
                                  {{ form.username }}
+                                 <label for="username" class="label-username">
+                                    <span class="content-username">Имя</span>
+                                </label>
+                                </div>
                             </div>
-                            <div>
+                            <div class="form_input_email">
                                 <div class='error'>{{form.errors.email}}</div>
-                                <div> Почта </div>
-                                {{ form.email }}
+                                <div class="input_email">  
+                                 {{ form.email }}
+                                 <label for="email" class="label-email">
+                                    <span class="content-email">Почта</span>
+                                </label>
+                                </div>
                             </div>
-                            <div>
+                            <div class="form_input_password1">
                                 <div class='error'>{{form.errors.password1}}</div>
-                                <div> Пароль </div>
-                                {{ form.password1 }}
+                                <div class="input_password1"> 
+                                    {{ form.password1 }}
+                                    <label for="passwrod1" class="label-password1">
+                                        <span class="content-password1">Пароль</span>
+                                    </label>
+                                </div>
                             </div>
-                            <div>
+                            <div class="form_input_password2">
                                 <div class='error'>{{form.errors.password2}}</div>
-                                <div> Подтвердите пароль </div>
-                                {{ form.password2 }}
+                                <div class="input_password2">
+                                    {{ form.password2 }}
+                                    <label for="password2" class="label-password2">
+                                        <span class="content-password2">Подтверждение пароля</span>
+                                    </label>
+                                </div>
                             </div>
-                            <button type="submit" class="registation_button">Зарегестрироваться</button>
+                            <div class="regestration_button">
+                                <button type="submit" class="registation_button">Зарегестрироваться</button>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -1,9 +1,9 @@
 {% extends "start_menu/index.html" %}
 {% block content %}
-    {% for book in books %}
-    <div>
-        <a href="{% url 'book_detail' book.id %}">{{book.name}}</a>
-        <div><img src="{{ book.cover_image.url }}"></div>
-    </div>
-    {% endfor %}
+<h2>
+    Начальная страница
+</h2>
+<h2>
+    Новости
+</h2>
  {% endblock %}

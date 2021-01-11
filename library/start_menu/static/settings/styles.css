@@ -308,7 +308,6 @@ margin-left: 450px;
     outline: none;
   }
   
-  /* active state */
   input[name="name"]:focus ~ label, .input[name="name"]:valid ~ label {
     top: -15px;
     font-size: 14px;
@@ -377,7 +376,6 @@ input[name="book_text_path"] {
     outline: none;
   }
   
-  /* active state */
   input[name="book_text_path"]:focus ~ label, .input[name="book_text_path"]:valid ~ label {
     top: -15px;
     font-size: 14px;

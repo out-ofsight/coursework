@@ -1,0 +1,47 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+.list {
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center;  
+    border: 1px solid black; 
+    width: 300px;
+}
+.headline {
+    font-family: 'Times New Roman', Times, serif;
+}
+a:hover {
+    background-color: #000;
+    color: #fff;
+    transition-duration: 0.3s;
+}
+.navigation {
+    font-size: 150%;
+}
+.canceling {
+    text-decoration: none;
+}
+.form {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+}
+.btn {
+    border: none;
+    background: none;
+}
+.btn:hover {
+    background-color: #000;
+    color: #fff;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.media-body {
+text-align: center;
+}
+.action_links {
+    padding-left: 700px;
+    font-size: 150%;
+}

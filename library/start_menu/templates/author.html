@@ -1,6 +1,28 @@
-<div>{{author.name}}</div>
-<div>{{author.information_about}}</div>
-{%for book in books%}
-<a href="{% url 'book_detail' book.id %}">{{book.name}}</a>
-<div>{{book.description}}</div>
-{% endfor %}
+{% extends "start_menu/index.html" %}
+{% load static %}
+{% block content %}
+
+<div class="temp_for_author">
+    <button type="submit" name='decrease_sort' id="decrease_sort">Сортировать по убыванию</button>
+    <button type="submit" name='increase_sort' id="increase_sort">Сортировать по возрастанию</button>
+    <div class="search_form_box">
+        <form class="search_form_box" method="POST">
+            {% csrf_token %}
+            {{search_form}}
+            <input type="submit" name="search_by_book_name" class="submit_button" value="Поиск">
+        </form>
+        </div>
+
+</div>
+<div class="all_data">
+    <div>{{author.name}}</div>
+    <div>{{author.information_about}}</div>
+    {%for book in books%}
+    <div class="book_name" data-sort="{{book.name}}">
+        <a href="{% url 'book_detail' book.id %}" class="link_to_detail_view">{{book.name}}</a>
+        <div>{{book.description}}</div>
+    </div>
+    {% endfor %}
+</div>
+<div class="paginator" onclick="pagination(event)"></div>
+{% endblock %}

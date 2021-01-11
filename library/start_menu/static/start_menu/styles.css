@@ -1,27 +1,20 @@
-.link_to_detail_view {
-    text-decoration: none;
-    font-family: helvetica;
-    margin-top: 20px;
-}
-.all_books {
+li {list-style-type: none;}
+
+.all_data {
     margin-left: 500px;
 }
-.link_to_detail_view:hover {
-    text-decoration: underline;
-  }
   
 .link_to_detail_view:active {
     color: #000;
   }
   
-.link_to_detail_view:visited {
-    color: purple;
-  }
 .temp {
-    background-color: #FAF9F7;
+    border: 1px solid #000;
     position: absolute;
     height: 500px;
     width: 230px;
+    margin-left: 20px;
+    padding-left: 15px;
 }
 * {
     margin: 0;
@@ -92,3 +85,141 @@
 .navigation_links:active:after {
     right: 0;
 }
+.all_genres {
+    margin-left: 500px;
+
+}
+.all_author {
+    margin-left: 500px;
+}
+.search_form_genre {
+    background-color: #FAF9F7;
+    position: absolute;
+    height: 500px;
+    width: 230px;
+}
+.all_series {
+    margin-left: 500px; 
+}
+.all_author_books {
+    margin-left: 500px;  
+}
+.all_series {
+    margin-left: 300px;  
+}
+.all_books_serie {
+    margin-left: 500px;  
+}
+#decrease_sort {
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+
+}
+#increase_sort {
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+#decrease_sort:hover {
+    background-color: #fff;
+    color: #000;
+    transition-duration: 0.3s;
+}
+#increase_sort:hover {
+    background-color: #fff;
+    color: #000;
+    transition-duration: 0.3s;
+}
+.submit_button {
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+.submit_button:hover {
+    background-color: #fff;
+    color: #000;
+    transition-duration: 0.3s;
+}
+#id_book_name {
+    border-left: none; 
+    border-right: none; 
+    border-top: none;
+    border-bottom: 2px solid;
+    text-align: center;
+    outline: none;
+    background-color: transparent;
+}
+#id_genre_name {
+    border-left: none; 
+    border-right: none; 
+    border-top: none;
+    border-bottom: 2px solid;
+    text-align: center;
+    outline: none;
+    background-color: transparent;
+}
+.errorlist {
+    visibility: collapse;
+}
+#id_author_name {
+    border-left: none; 
+    border-right: none; 
+    border-top: none;
+    border-bottom: 2px solid;
+    text-align: center;
+    outline: none;
+    background-color: transparent;  
+}
+.temp_for_author {
+    padding-left: 15px;
+    border: 1px solid #000;
+    position: absolute;
+    height: 200px;
+    width: 230px;
+    margin-left: 20px;
+}
+#id_serie_name {
+    border-left: none; 
+    border-right: none; 
+    border-top: none;
+    border-bottom: 2px solid;
+    text-align: center;
+    outline: none;
+    background-color: transparent;  
+}
+.link_to_detail_view {
+    text-decoration: none;
+    color: #DC143C;
+}
+.link_to_detail_view:hover {
+    transition-duration: 0.3s;
+    border-bottom: 1px solid #000;
+}
+.num {
+    display: none;
+  }
+.paginator {
+    line-height: 150%;
+    cursor: pointer;
+    color: #DC143C;
+    text-align: center;
+    font-size: 150%;
+  }
+.paginator > span {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .paginator_active {
+    color: #000;
+  }
+  .icon {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: transparent;
+  }

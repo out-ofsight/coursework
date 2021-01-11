@@ -8,7 +8,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Turret+Road:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-
+        <a href="{% url 'start_search_menu' %}">
+            <img src="{% static 'start_menu/icon.png' %}" class="icon">
+        </a>
         <header id="header">
             <nav id="login_and_registration">
                 {% if user.is_authenticated %}
@@ -49,6 +51,7 @@
 
              {% endblock %}
         </div>
-        <script src="{% static 'book_text/pagination.js' %}"></script>
+        <script src="{% static 'sort_function/sort.js' %}"></script>
+        <script src="{% static 'pagination/pagination.js' %}"></script>
     </body>
 </html>

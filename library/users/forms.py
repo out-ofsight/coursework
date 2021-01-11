@@ -35,6 +35,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = [
             'image',
-            'service'
+            'service',
+            'server_connection_date'
         ]
         

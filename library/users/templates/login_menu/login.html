@@ -9,26 +9,33 @@
     <body>
             <div class="back">
                 <div class="position_of_form">
-                    <div class="header"> <h1>Вход</h1></div>
+                    <div class="header">
+                         <h1>Вход</h1>
+                    </div>
                     <div class="formbox">
-                        <form class="input_data_form" method="POST">
+                        <form class="input_data_form" method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
-                            <div>
-                                <div class='error'>{{messages.info.username}}</div>
-                                <div> <input type="text" name="username" placeholder="Имя"> </div>
-                                 
-                            </div>
-                            <div>
-                                <div class='error'>{{form.errors.password1}}</div>
-                                <div> <input type="password" name="password" placeholder="Пароль"> </div>
-                            </div>
+
+                                <div class="form_input_username">
+                                    <input name="username" class="username" type="text" name="username" required>
+
+                                    <label for="username" class="label-username">
+                                        <span class="content-username">Имя</span>
+                                    </label>
+                                </div>
+                                <div class="form_input_password">
+                                    <input name="password" class="password" type="password" name="password" required>
+                                    <label for="password" class="label-password">
+                                        <span class="content-password">Пароль</span>
+                                    </label>
+                                </div>                      
+                    </div> 
+                    <div class="button_position">
                             <button type="submit" class="registation_button">Войти</button>
+                        </div>
                         </form>
                     </div>
                 </div>
-                {% for massage in messages %}
-                   <p> {{ massage }} </p>
-                {% endfor %}
             </div>
     </body>
 </html>

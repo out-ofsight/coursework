@@ -18,6 +18,7 @@ class AuthorUpdateForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = '__all__'
+        labels = {'name':'Имя', 'information_about':'Информация об авторе', 'birth_date':'Дата рождения', 'death_date':'Дата смерти'}
 
 class GenreUpdateForm(forms.ModelForm):
     class Meta:
@@ -41,6 +42,7 @@ class BookUpdateForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = '__all__'
+        
 
 class FilterForm(forms.Form):
     genres = forms.ModelMultipleChoiceField(
@@ -100,3 +102,22 @@ class PublishingHouseUpdateForm(forms.ModelForm):
 
 class SerieFilterForm(forms.Form):
     is_ended_serie = forms.BooleanField(required=False)
+
+class FilterFormForGenre(forms.Form):
+    genres_name = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        widget = forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+class SearchFormForGenre(forms.Form):
+    genre_name = forms.CharField(max_length=50)
+
+class AuthorFilterForm(forms.Form):
+    is_dead = forms.BooleanField(required=False)
+
+class SearchFormForAuthor(forms.Form):
+    author_name = forms.CharField(max_length=50)
+
+class SearchFormForsSerie(forms.Form):
+    serie_name = forms.CharField(max_length=50)

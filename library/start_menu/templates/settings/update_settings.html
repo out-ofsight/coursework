@@ -5,10 +5,10 @@
     <head>
         <meta charset="utf-8">
         <title> Сервисы </title>
-        <link rel="stylesheet" href="{% static 'settings/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'settings/styles_for_list.css' %}">
     </head>
     <body>
-        <nav>
+        <nav class="navigation">
             <a href="{% url 'settings' %}">
                 Добавить сервис
             </a>
@@ -18,12 +18,15 @@
         </nav>
         
         {% block content %}
-        
-        {% for service in servisies %}
-        <h2><a class="article-title" href="{% url 'detail_view' service.id %}">{{ service.name }}</a></h2>
-        {% endfor %}
+        <div>
+            <h2 style="text-align: center;">Список сервесов</h2>
         </div>
-
+        <div class="list">
+            {% for service in servisies %}
+            <h2 class="headline" ><a class="article-title" href="{% url 'detail_view' service.id %}">{{ service.name }}</a></h2>
+            {% endfor %}
+            
+         </div>
     {% endblock content %}
 
     </body>
