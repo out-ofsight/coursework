@@ -325,6 +325,11 @@ def get_Book(request, pk):
         user_id = request.user.id
         user = request.user
         profile = Profile.objects.all().filter(user=user)
+        user_have_service = True
+        try:
+            profile.get(user=user).service
+        except BaseException:
+            user_have_service = False
         service = Service.objects.filter(id__in=profile.values('service')).values('id')
         is_service_include = False
         book = Book.objects.all().get(id=pk)
@@ -363,7 +368,6 @@ def get_Book(request, pk):
             'book_id': book_id,
             'is_service_include':is_service_include
         }
-
     return render(request,'start_menu/book_detail.html', context)
 
 def add_book_to_library(request):
@@ -425,6 +429,14 @@ def bookList(request):
             books = Book.objects.filter(name__contains=book_name)
         if 'cancel' in request.POST:
             books = Book.objects.all()
+        if 'from_pages' in request.POST:
+                from_page = filter_form.cleaned_data['from_pages']
+                if from_page != '' and from_page is not None:
+                    books = books.filter(page_count__gte=from_page)
+        if 'to_pages' in request.POST:
+            to_page = filter_form.cleaned_data['to_pages']
+            if to_page != '' and to_page is not None:
+                books = books.filter(page_count__lte=to_page)
     context = {
         'books': books,
         'genres': genres,

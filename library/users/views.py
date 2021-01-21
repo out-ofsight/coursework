@@ -35,7 +35,7 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'regestration_menu/regestration_menu.html', context)
 
-'''
+
 class LoginView1(View):
     def post(self, request):
         username = request.post.get('username')
@@ -60,11 +60,6 @@ def login(request):
         username = request.post.get('username')
         password = request.post.get('password')
         user = authenticate(request, username=username, password=password)
-        tuple_data = get_user_and_profile(username)
-        current_user, current_profile = tuple_data
-        user_service = Service.objects.get(id=current_profile.service)
-        if check_date(user_service.time_to_use, current_profile.server_connection_date):
-            delete_service(current_profile)
         if user is not None:
 
             login(request, user)
@@ -73,7 +68,7 @@ def login(request):
             messages.info(request, 'Пароль или имя пользывателя неправильные')
     context = {}
     return render(request, 'login_menu/login.html', context)
-
+'''
 def logout_user(request):
     current_user = request.user
     current_profile = None
@@ -121,19 +116,36 @@ def profile(request):
                 today = datetime.date.today()
                 user_profile.server_connection_date = today
                 user_profile.save()
-                books = Book.objects.filter(service_book__name=user_service).values('name')
-                books_name = ''            
-                for i in books:
-                    books_name+=i['name'] + ', '
-                template = render_to_string('email/new_service.html', {'name': user.username, 'books': books_name})
-                email = EmailMessage(
-                'Сервис обновлён',
-                template,
-                settings.EMAIL_HOST_USER,
-                [user.email]
-            )
-                email.fail_silently = False
-                email.send()
+                try:
+                    if p_form.cleaned_data['service'] != user_profile.service:
+                        books = Book.objects.filter(service_book__name=user_service).values('name')
+                        books_name = ''            
+                        for i in books:
+                            books_name+=i['name'] + ', '
+                        template = render_to_string('email/new_service.html', {'name': user.username, 'books': books_name})
+                        email = EmailMessage(
+                        'Сервис обновлён',
+                        template,
+                        settings.EMAIL_HOST_USER,
+                        [user.email]
+                    )
+                        email.fail_silently = False 
+                        email.send()
+                except BaseException:
+                    books = Book.objects.filter(service_book__name=user_service).values('name')
+                    books_name = ''            
+                    for i in books:
+                        books_name+=i['name'] + ', '
+                    template = render_to_string('email/new_service.html', {'name': user.username, 'books': books_name})
+                    email = EmailMessage(
+                    'Сервис добавлен',
+                    template,
+                    settings.EMAIL_HOST_USER,
+                    [user.email]
+                    )
+                    email.fail_silently = False 
+                    email.send()
+
             p_form.save()
             return redirect('start_search_menu')
     else:

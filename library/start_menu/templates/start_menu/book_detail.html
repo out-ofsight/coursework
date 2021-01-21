@@ -47,7 +47,15 @@
         </div>
       {% endif %}
         {% endif%}
+        {% else %}
+                <div id="list">
+            {%for data in text%}
+            <div>{{data}}</div>
+            {%endfor%}
+        </div>
+
         {% endif %}
         <script src="{% static 'book_text/pagination.js' %}"></script>
+        
     </body> 
 </html>

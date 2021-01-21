@@ -1,8 +1,17 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Service, Author, Genre, Serie, Language, Book, Publishing_House
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Max, Min
 
 
+def get_max_value():
+    max_value = Book.objects.aggregate(Max('page_count'))
+    return max_value['page_count__max']
+
+def get_min_value():
+    min_value = Book.objects.aggregate(Min('page_count'))
+    return min_value['page_count__min']
 
 class ServiceUpdateForm(forms.ModelForm):
     class Meta:
@@ -65,6 +74,10 @@ class FilterForm(forms.Form):
         widget = forms.CheckboxSelectMultiple,
         required=False
     )
+    max_value = get_max_value()
+    min_value = get_min_value()
+    from_pages = forms.IntegerField(required=False, min_value=1)
+    to_pages = forms.IntegerField(required=False, max_value=max_value, min_value=1)
 
 class BookAddForm(forms.ModelForm):
     
@@ -121,3 +134,4 @@ class SearchFormForAuthor(forms.Form):
 
 class SearchFormForsSerie(forms.Form):
     serie_name = forms.CharField(max_length=50)
+
